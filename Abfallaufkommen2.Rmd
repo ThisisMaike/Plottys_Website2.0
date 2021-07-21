@@ -21,7 +21,7 @@ Abfallaufkommen <- Abfallaufkommen %>%
 Jahre <- c("2004", "2006", "2008", "2010", "2012", "2014", "2016", "2018")
 
 Abfallaufkommen_DE <- Abfallaufkommen %>%
-  filter(Land ==  c("Germany (until 1990 former territory of the FRG)"))
+  filter(Land == "Germany (until 1990 former territory of the FRG)")
 
 ```
 
