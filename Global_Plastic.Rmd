@@ -45,9 +45,6 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFFFF;")))
 
-ggsave(filename = "Einstieg_Highlights.png")
-
-
 
 #2. Versuch interaktive Grafik mit Hover-Text
 
@@ -75,8 +72,8 @@ cumulative_global_plastic %>%
   rename(cgpp = `Cumulative global plastics production (million tonnes)`) %>%
  mutate(cgpp = as.numeric(cgpp)/1000000000) %>%
 ggplot(aes(x = Year, y = cgpp )) + geom_area(fill = '#00868B', alpha= 0.6) + geom_point_interactive(aes(tooltip = cgpp), color = '#00868B') +
-  scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02)) +
-  scale_y_continuous(limits = c(0, 8), breaks = c(1, 2, 3, 4, 5, 6, 7, 8), expand = c(0,0)) +
+  scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02, 0.02)) +
+  scale_y_continuous(limits = c(0, 8), breaks = c(0, 1, 2, 3, 4, 5, 6, 7, 8), expand = c(0,0)) +
   labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015") +
   theme_minimal_hgrid(12) -> plot_cumulative_global_plastic
 
@@ -89,10 +86,33 @@ girafe(
 ```
 
 ```{r}
-waste_per_country <- readr::read_csv("data/plastic-waste-generation-total.csv")
-waste_per_country_capita <- readr::read_csv("data/plastic-waste-per-capita.csv")
 
-#Kombinieren der beiden Datensätze mit Waste generation per country und per capita waste per country
-combi <- inner_join(waste_per_country, waste_per_country_capita)
+per_capita_plastic_waste <- readr::read_csv("data/per-capita-plastic-waste-vs-gdp-per-capita.csv")
+per_capita_mismanaged_plastic <- readr::read_csv("data/per-capita-mismanaged-plastic-waste-vs-gdp-per-capita.csv")
+
+#Kombinieren der beiden Datensätze mit per Capita plastic waste und per capita mismanaged plastic
+combi <- inner_join(per_capita_mismanaged_plastic, per_capita_plastic_waste)
+
+combi %>%
+  rename(GDP = `GDP per capita, PPP (constant 2011 international $)`) %>%
+  filter(Year == 2010) %>%
+  select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (kg/person/day)`, GDP, Continent) -> mydata
+
+data_final<- readr::read_csv("data/data_cleaned.csv") %>%
+  na.omit() -> mydata
+
+mydata %>%
+  ggplot(aes(x = `Per capita plastic waste (kg/person/day)`, y = `Per capita mismanaged plastic waste`, size = GDP, color = Continent)) + geom_point_interactive(aes(tooltip = Entity)) +                                                 scale_x_continuous(limits = c(0, 0.7), breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7)) +
+  scale_y_continuous(limits = c(0, 0.3), breaks = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3)) +
+  theme_minimal_grid() +
+  theme(axis.text.y = element_text(vjust = 0)) -> plot_per_capita_waste_mismanagement_GDP
+
+
+girafe(
+  ggobj = plot_per_capita_waste_mismanagement_GDP,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #00868B; color: #FFFFFF;")))
 ```
 
