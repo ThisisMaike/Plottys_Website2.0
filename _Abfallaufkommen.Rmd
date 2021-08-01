@@ -1,0 +1,82 @@
+---
+title: "Abfallaufkommen"
+description: |
+  Abfallaufkommen
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+#pakete laden
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(ggiraph)
+library(gganimate)
+library(cowplot)
+```
+
+```{r}
+
+Abfallaufkommen <- read_excel("data/Abfallaufkommen_Plastik.xlsx")
+#View(Abfallaufkommen)
+
+#Umbenennung
+Abfallaufkommen <- Abfallaufkommen %>%
+                  rename(Land = 'TIME')
+#nur Deutschland
+Abfallaufkommen %>%
+ filter(Land ==  "Germany (until 1990 former territory of the FRG)") -> Abfallaufkommen_DE
+#Umformen und fehlende Werte entfernen
+Abfallaufkommen_DE %>%
+pivot_longer(cols = -Land, names_to = "Jahre", values_to = "n") %>%
+  na.omit() -> Plastikabfall_DE
+Plastikabfall_DE$Jahre <- as.numeric(as.character(Plastikabfall_DE$Jahre))  # Convert one variable to numeric
+Plastikabfall_DE$n <- as.numeric(as.character(Plastikabfall_DE$n))
+Plastikabfall_DE %>%
+  mutate(MillTonnen = n/1000000) -> PlastikinMillTonnen
+
+```
+
+```{r}
+
+#erste Idee Plot
+
+ggplot(Plastikabfall_DE,
+       aes(x= Jahre, y= n)) +
+  geom_line(alpha = 0.2) +
+  geom_point_interactive(aes (tooltip = n), color = '#00868B', alpha = 0.6, size = 4) +
+  labs(title = "Aufkommen von Plastikabfall in Deutschland", subtitle = "Plastikabfall von 2004 bis 2018 in Tonnen", y= "Tonnen") +
+  scale_x_continuous(breaks = c(2004,2006,2008,2010,2012,2014,2016,2018)) +
+  scale_y_continuous(limits = c(1000000, 3000000)) +
+  theme_minimal_hgrid(12) -> plotAbfall
+
+girafe(
+  ggobj = plotAbfall,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;")))
+
+
+```
+
+```{r}
+
+#zweite Idee Plot, Lollipop
+ggplot(PlastikinMillTonnen, aes(x= Jahre, y= MillTonnen)) +
+  geom_point_interactive (aes (tooltip = MillTonnen), size=5, color="#00868B", alpha = 0.6) +
+   geom_segment( aes(x= Jahre, xend=Jahre, y= 0, yend= MillTonnen)) +
+   scale_x_continuous(breaks = c(2004,2006,2008,2010,2012,2014,2016,2018))+
+  scale_y_continuous(limits = c(0, 3.5)) +
+  labs(title = "Aufkommen von Plastikabfall in Deutschland", subtitle = "Plastikabfall von 2004 bis 2018 in Millionentonnen", y= "Mt") + theme_minimal() -> Plot2
+
+girafe(
+  ggobj = Plot2,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;")))
+
+```
+
