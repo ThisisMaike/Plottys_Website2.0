@@ -40,7 +40,7 @@ girafe(
   width_svg = 7,
   height_svg = 7*0.618,
     options = list(
-    opts_tooltip(css = "background: #00868B; color: #FFFFFF;")))
+    opts_tooltip(css = "background: #00868B; color: #FFFFFF;padding:2px;border-radius:2px;")))
 
 
 #2. Versuch interaktive Grafik mit Hover-Text
@@ -79,7 +79,7 @@ girafe(
   width_svg = 7,
   height_svg = 7*0.618,
     options = list(
-    opts_tooltip(css = "background: #00868B; color: #FFFF;")))
+    opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
 
 ```{r}
