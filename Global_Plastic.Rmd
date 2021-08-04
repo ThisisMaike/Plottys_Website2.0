@@ -104,7 +104,7 @@ mydata2 %>%
   theme_minimal_grid() +
   theme(axis.text.y = element_text(vjust = 0)) +
   scale_colour_brewer(palette = "Set1") +
-  labs(x = "Plastikmüll pro Kopf (täglich in kg)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in kg)", title = "Zusammenhang von Wolstand, Plastikmüllproduktion \nund inadäquater Entsorgung") -> plot_per_capita_waste_mismanagement_GDP
+  labs(x = "Plastikmüll pro Kopf (täglich in kg)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in kg)", title = "Zusammenhang von Wohlstand, Plastikmüllproduktion \nund inadäquater Entsorgung") -> plot_per_capita_waste_mismanagement_GDP
 
 
 girafe(
@@ -115,9 +115,6 @@ girafe(
     opts_tooltip(opacity = .7, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.3;")))
-
-RColorBrewer::display.brewer.all()
-
 
 #Definition inadäquate Entsorgung auf Website ergänzen + Info das Daten aus 2010 sind 
 
