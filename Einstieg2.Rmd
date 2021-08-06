@@ -20,6 +20,7 @@ library(patchwork)
 ```
 
 ```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 #Idee: geom_point und geom_line kombinieren 
 
 Woche <- c(1, 4, 25, 52)
