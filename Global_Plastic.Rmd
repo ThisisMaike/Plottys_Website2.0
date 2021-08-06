@@ -32,7 +32,7 @@ global_plastic %>%
 ggplot(aes(x = Year, y = gpp )) + geom_line(color = '#00868B', alpha = 0.6) + geom_point_interactive(aes(data_id = gpp, tooltip = gpp), color = '#00868B') +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02)) +
   scale_y_continuous(limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400), expand = c(0,0)) +
-  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Globale Entwicklung der Plastik Produktion von 1950 bis 2015") +
+  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Globale Entwicklung der Plastikproduktion von 1950 bis 2015") +
   theme_minimal_hgrid(12) -> plot_global_plastic
 
 girafe(
@@ -80,6 +80,8 @@ girafe(
   height_svg = 7*0.618,
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
+
+
 ```
 
 ```{r}
