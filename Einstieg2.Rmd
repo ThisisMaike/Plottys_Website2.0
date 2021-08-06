@@ -9,8 +9,14 @@ site: distill::distill_website
 library(tidyverse)
 library(fs)
 library(dplyr)
-library(dplyr)
 library(ggplot2)
+library(ggiraph)
+library(plotly)
+library(magick)
+library(tibble)
+library(cowplot)
+library(png)
+library(patchwork)
 ```
 
 ```{r, include=FALSE}
@@ -42,5 +48,58 @@ annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
 
 ```
 
+```{r}
+# plot
+Einstieg_HL %>%
+  ggplot(aes(Woche, Gramm)) +
+   geom_line () +
+  geom_point_interactive(aes(tooltip = Gramm), colour= "#00868B", size = 4) +
+    scale_y_continuous(limits = c(0, 300)) +
+    scale_x_continuous (limits = c(0,60), breaks= c(0, 1, 4, 25, 52, 60)) +
+ #geom_smooth(method = "lm", colour= "grey") +
+  labs(title = "Durchschnittliche Aufnahme von Plastik pro Person", subtitle = "Mikroplastik (in Gramm) pro Woche entspricht ungefähr...") +
+  annotate(geom = "text", label= "Kreditkarte", x= 5.5, y= 2.5) + 
+  annotate(geom= "text", label= "Zahnbürste", x= 9.2, y= 20) +
+annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
+   annotate(geom= "text", label= "Butter", x= 54.5,y= 250) +
+    theme_test() -> EinstiegsPlot
+  
+# dateipfad
+kreditkarte <- "Kreditkarte.png"
+zahnbuerste <- "zahnbuerste.png"
+creme <- "creme.png"
+butter <- "Butter.png"
+  
+# png dateien einlesen
+img1 <- readPNG(kreditkarte, native = TRUE)
+img2 <- readPNG(zahnbuerste, native = TRUE)
+img3 <- readPNG(creme, native = TRUE)
+img4 <- readPNG(butter, native = TRUE)
+  
+# bilder zum plot hinzufügen  
+img_graph <- EinstiegsPlot +                  
+  inset_element(p = img1,
+                left = 0.02,
+                bottom = 0.09,
+                right = 0.08,
+                top = 0.3) + 
+  inset_element(p = img2,
+                left = 0.08,
+                bottom = 0.17,
+                right = 0.17,
+                top = 0.3) +
+  inset_element(p = img3,
+                left = 0.3,
+                bottom = 0.5,
+                right = 0.5,
+                top = 0.7) +
+  inset_element(p = img4,
+                left = 0.7,
+                bottom = 0.87,
+                right = 0.85,
+                top = 0.98) 
+# plot mit image ausspielen
+print (img_graph)
+```
 
 
