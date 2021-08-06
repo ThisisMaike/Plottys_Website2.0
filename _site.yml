@@ -13,4 +13,6 @@ navbar:
       href: Einstieg2.html
     - text: "About"
       href: about.html
+    - text: "Missmanagement"
+      href: Waste_Management.html
 output: distill::distill_article
