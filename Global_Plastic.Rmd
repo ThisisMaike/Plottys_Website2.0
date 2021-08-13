@@ -19,10 +19,6 @@ library(ggiraph)
 ```
 
 ```{r}
-# Fine-Tuning muss noch gemacht werden
-# Plott so an sich zu langweilig? Können wir noch andere Date hier verknüpfen? 
-# Gibt es eine Möglichkeit die lineare und die kumultaive ENtwicklung in einem Plot dazustellen?
-
 global_plastic <- readr::read_csv("data/global-plastics-production.csv")
 
 global_plastic %>% rename(gpp = `Global plastics production (million tonnes)`) -> global_plastic
@@ -32,7 +28,7 @@ global_plastic %>%
 ggplot(aes(x = Year, y = gpp )) + geom_line(color = '#00868B', alpha = 0.6) + geom_point_interactive(aes(data_id = gpp, tooltip = gpp), color = '#00868B') +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02)) +
   scale_y_continuous(limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400), expand = c(0,0)) +
-  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Globale Entwicklung der Plastikproduktion von 1950 bis 2015") +
+  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Im Vergleich zu 1950 hat sich 2015 die Plastikproduktion in\n Millionen Tonnen fast um den Faktor 200 erhöht", subtitle = "Globale Entwicklung der Plastikproduktion von 1950 bis 2015") +
   theme_minimal_hgrid(12) -> plot_global_plastic
 
 girafe(
@@ -42,24 +38,6 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFFFF;padding:2px;border-radius:2px;")))
 
-
-#2. Versuch interaktive Grafik mit Hover-Text
-
-global_plastic %>%
- mutate(gpp = as.numeric(gpp)/1000000) -> global_plastic2
-
-
-global_plastic2 %>%
-plot_ly(x=~Year, y=~gpp, type = "scatter", mode = "markers", hoverinfo = "text", text = paste("Year: ", global_plastic2$Year, "<br>", "Plastic in million tonnes: ", global_plastic2$gpp)) ->plot1
-
-x <- list(
-  title = "")
-y <- list(
-  title = "Globale Plastikproduktion in mio. Tonnen")
-
-plot2 <- plot1 %>% layout(xaxis = x, yaxis = y)
-
-plot2
 ```
 
 ```{r}
@@ -71,7 +49,7 @@ cumulative_global_plastic %>%
 ggplot(aes(x = Year, y = cgpp )) + geom_area(fill = '#00868B', alpha= 0.6) + geom_point_interactive(aes(data_id = cgpp, tooltip = cgpp), color = '#00868B') +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02, 0.02)) +
   scale_y_continuous(limits = c(0, 8), breaks = c(0, 1, 2, 3, 4, 5, 6, 7, 8), expand = c(0,0)) +
-  labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015") +
+  labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Mehr als die Hälfte des weltweit produzierten Plastiks\n wurde in den letzten 15 Jahren produziert", subtitle = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015" ) +
   theme_minimal_hgrid(12) -> plot_cumulative_global_plastic
 
 girafe(
@@ -98,15 +76,18 @@ data_final<- readr::read_csv("data/data_cleaned.csv") %>%
 
 mydata %>%
   rename(BIP = `GDP`, Kontinent = 'Continent') %>%
-  select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (kg/person/day)`, BIP, Kontinent) -> mydata2
+  mutate(`Per capita mismanaged plastic waste` = `Per capita mismanaged plastic waste`*1000) %>%
+  mutate(`Per capita plastic waste (kg/person/day)` = `Per capita plastic waste (kg/person/day)`*1000) %>%
+  rename(`Per capita plastic waste (g/person/day)` = `Per capita plastic waste (kg/person/day)`) %>%
+  select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (g/person/day)`, BIP, Kontinent) -> mydata2
 
 mydata2 %>%
-  ggplot(aes(x = `Per capita plastic waste (kg/person/day)`, y = `Per capita mismanaged plastic waste`, size = BIP, color = Kontinent)) + geom_point_interactive(position = "jitter", aes(data_id = Entity, tooltip = Entity)) +                                                 scale_x_continuous(limits = c(0, 0.7), breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7)) +
-  scale_y_continuous(limits = c(0, 0.3), breaks = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3)) +
+  ggplot(aes(x = `Per capita plastic waste (g/person/day)`, y = `Per capita mismanaged plastic waste`, size = BIP, fill = Kontinent)) + geom_point_interactive(position = "jitter", shape = 21, color = "black", aes(data_id = Entity, tooltip = Entity)) +                                                 scale_x_continuous(limits = c(0, 700), breaks = c(0, 100, 200, 300, 400, 500, 600, 700)) +
+  scale_y_continuous(limits = c(0, 300), breaks = c(0, 50, 100, 150, 200, 250, 300)) +
   theme_minimal_grid() +
   theme(axis.text.y = element_text(vjust = 0)) +
-  scale_colour_brewer(palette = "Set1") +
-  labs(x = "Plastikmüll pro Kopf (täglich in kg)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in kg)", title = "Zusammenhang von Wohlstand, Plastikmüllproduktion \nund inadäquater Entsorgung") -> plot_per_capita_waste_mismanagement_GDP
+  scale_fill_brewer(palette = "Set1") +
+  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "kommt noch", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") -> plot_per_capita_waste_mismanagement_GDP
 
 
 girafe(
