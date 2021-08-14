@@ -81,9 +81,6 @@ mydata %>%
   rename(`Per capita plastic waste (g/person/day)` = `Per capita plastic waste (kg/person/day)`) %>%
   select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (g/person/day)`, BIP, Kontinent) -> mydata2
 
-#highlight_DL <- mydata2 %>%
- # filter(Entity == "Deutschland")
-
 mydata2 %>%
   ggplot(aes(x = `Per capita plastic waste (g/person/day)`, y = `Per capita mismanaged plastic waste`, size = BIP, fill = Kontinent)) + geom_point_interactive(position = "jitter", shape = 21, color = "black", aes(data_id = Entity, tooltip = Entity)) + 
   scale_x_continuous(limits = c(0, 700), breaks = c(0, 100, 200, 300, 400, 500, 600, 700)) +
