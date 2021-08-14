@@ -30,8 +30,8 @@ html {
   --fig-cap-color:   rgba(0, 0, 0, 0.6);
   /*-- Specify custom fonts ~~~ must be imported above   --*/
   --heading-font:    "Amiri", serif;
-  --mono-font:       "DM Mono", monospace;
-  --body-font:       "Bitter", sans-serif;
+  --mono-font:       "Amiri", monospace;
+  --body-font:       "Amiri", sans-serif;
   --navbar-font:     "Amiri", serif;  /* websites + blogs only */
 }
 

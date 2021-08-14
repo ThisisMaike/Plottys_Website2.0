@@ -30,26 +30,6 @@ Einstieg_HL <- tibble(Woche, Gramm)
 
 
 ```{r}
-Einstieg_HL %>%
-  ggplot(aes(Woche, Gramm)) +
-   geom_line () +
-  geom_point(colour= "#00868B", size = 4) +
-    scale_y_continuous(limits = c(0, 300)) +
-    scale_x_continuous (limits = c(0,60), breaks= c(0, 1, 4, 25, 52, 60)) +
- #geom_smooth(method = "lm", colour= "grey") +
-  labs(title = "Durchschnittliche Aufnahme von Plastik pro Person", subtitle = "Mikroplastik (in Gramm) pro Woche entspricht ungefähr...") +
-   annotate(geom = "text", label= "Kreditkarte", x= 5.4, y= 2.5) + 
-   annotate(geom= "text", label= "Zahnbürste", x= 9.2, y= 20) +
-annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
-   annotate(geom= "text", label= "Butter", x= 54.5,y= 250) +
-    theme_test()
-
-#ggsave(filename = "Einstieg_Highlights.png")
-#EinstiegsPlot <- "Einstieg_Higlights.png"
-
-```
-
-```{r}
 # plot
 Einstieg_HL %>%
   ggplot(aes(Woche, Gramm)) +
@@ -65,12 +45,6 @@ annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
     theme_minimal_hgrid() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) -> EinstiegsPlot
 
-girafe(
-  ggobj = img_graph,
-  width_svg = 7,
-  height_svg = 7*0.618,
-    options = list(
-    opts_tooltip(css = "background: #F5F5F5; color: #000000;")))
   
 # dateipfad
 kreditkarte <- "icons/Kreditkarte.png"
@@ -107,8 +81,13 @@ img_graph <- EinstiegsPlot +
                 right = 0.85,
                 top = 0.98) 
 
-# plot mit icons ausspielen
-print (img_graph)
+
+girafe(
+  ggobj = img_graph,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;")))
 
 ```
 
