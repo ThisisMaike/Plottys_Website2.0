@@ -81,13 +81,18 @@ mydata %>%
   rename(`Per capita plastic waste (g/person/day)` = `Per capita plastic waste (kg/person/day)`) %>%
   select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (g/person/day)`, BIP, Kontinent) -> mydata2
 
+#highlight_DL <- mydata2 %>%
+ # filter(Entity == "Deutschland")
+
 mydata2 %>%
-  ggplot(aes(x = `Per capita plastic waste (g/person/day)`, y = `Per capita mismanaged plastic waste`, size = BIP, fill = Kontinent)) + geom_point_interactive(position = "jitter", shape = 21, color = "black", aes(data_id = Entity, tooltip = Entity)) +                                                 scale_x_continuous(limits = c(0, 700), breaks = c(0, 100, 200, 300, 400, 500, 600, 700)) +
+  ggplot(aes(x = `Per capita plastic waste (g/person/day)`, y = `Per capita mismanaged plastic waste`, size = BIP, fill = Kontinent)) + geom_point_interactive(position = "jitter", shape = 21, color = "black", aes(data_id = Entity, tooltip = Entity)) + 
+  scale_x_continuous(limits = c(0, 700), breaks = c(0, 100, 200, 300, 400, 500, 600, 700)) +
   scale_y_continuous(limits = c(0, 300), breaks = c(0, 50, 100, 150, 200, 250, 300)) +
   theme_minimal_grid() +
   theme(axis.text.y = element_text(vjust = 0)) +
   scale_fill_brewer(palette = "Set1") +
-  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "kommt noch", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") -> plot_per_capita_waste_mismanagement_GDP
+  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "Das Plastikproblem ist eine Mischung aus hoher Produktion in\n wohlhabenderen und inadäquater Entsorgung in ärmeren Ländern ", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") +
+  annotate(geom = "text", label= "Deutschland", x= 490, y= 20) -> plot_per_capita_waste_mismanagement_GDP
 
 
 girafe(
