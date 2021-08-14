@@ -28,7 +28,7 @@ global_plastic %>%
 ggplot(aes(x = Year, y = gpp )) + geom_line(color = '#00868B', alpha = 0.6) + geom_point_interactive(aes(data_id = gpp, tooltip = gpp), color = '#00868B') +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02)) +
   scale_y_continuous(limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400), expand = c(0,0)) +
-  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Im Vergleich zu 1950 hat sich 2015 die Plastikproduktion in\n Millionen Tonnen fast um den Faktor 200 erhöht", subtitle = "Globale Entwicklung der Plastikproduktion von 1950 bis 2015") +
+  labs(x = "", y = "Plastik in Millionen Tonnen", title = "Im Vergleich zu 1950 hat sich 2015 die jährliche\n Plastikproduktion fast um das 200-fache erhöht", subtitle = "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015") +
   theme_minimal_hgrid(12) -> plot_global_plastic
 
 girafe(
@@ -49,7 +49,7 @@ cumulative_global_plastic %>%
 ggplot(aes(x = Year, y = cgpp )) + geom_area(fill = '#00868B', alpha= 0.6) + geom_point_interactive(aes(data_id = cgpp, tooltip = cgpp), color = '#00868B') +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02, 0.02)) +
   scale_y_continuous(limits = c(0, 8), breaks = c(0, 1, 2, 3, 4, 5, 6, 7, 8), expand = c(0,0)) +
-  labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Mehr als die Hälfte des weltweit produzierten Plastiks\n wurde in den letzten 15 Jahren produziert", subtitle = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015" ) +
+  labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Mehr als die Hälfte des weltweit produzierten Plastiks\n wurde in den letzten 15 Jahren* produziert", subtitle = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015" ) +
   theme_minimal_hgrid(12) -> plot_cumulative_global_plastic
 
 girafe(
@@ -90,9 +90,9 @@ mydata2 %>%
   scale_y_continuous(limits = c(0, 300), breaks = c(0, 50, 100, 150, 200, 250, 300)) +
   theme_minimal_grid() +
   theme(axis.text.y = element_text(vjust = 0)) +
-  scale_fill_brewer(palette = "Set1") +
-  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "Das Plastikproblem ist eine Mischung aus hoher Produktion in\n wohlhabenderen und inadäquater Entsorgung in ärmeren Ländern ", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") +
-  annotate(geom = "text", label= "Deutschland", x= 490, y= 20) -> plot_per_capita_waste_mismanagement_GDP
+  scale_fill_brewer(palette = "Set2") +
+  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "Problematisch ist die Mischung aus hoher Plastikproduktion in\n wohlhabenderen und inadäquater Entsorgung in ärmeren Ländern ", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") +
+  annotate(geom = "label", label= "Deutschland", x= 490, y= 25) -> plot_per_capita_waste_mismanagement_GDP
 
 
 girafe(

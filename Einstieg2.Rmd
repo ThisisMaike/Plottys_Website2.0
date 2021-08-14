@@ -57,7 +57,7 @@ Einstieg_HL %>%
   geom_point_interactive(aes(tooltip = Gramm), colour= "#00868B", size = 4) +
     scale_y_continuous(limits = c(0, 300), breaks = c(0,50,100,150,200,250,300)) +
     scale_x_continuous (limits = c(0,60), breaks= c(1, 4, 25, 52), labels = c("eine Woche", "ein Monat", "halbes Jahr", "ein Jahr")) +
-  labs(title = "Durchschnittliche Aufnahme von Mikroplastik pro Person", subtitle = "Entsprechung der aufgenommenen Menge an Mikroplastik in Gramm") +
+  labs(title = "Wie viel Mikroplastik landet in unserem Körper?", subtitle = "Die durchschnittliche Aufnahme von Mikroplastik pro Person\ninnerhalb eines Jahres mit Referenzobjekten", x = "") +
   annotate(geom = "text", label= "Kreditkarte", x= 5.5, y= 2.5) + 
   annotate(geom= "text", label= "Zahnbürste", x= 9.2, y= 20) +
 annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
@@ -66,7 +66,7 @@ annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) -> EinstiegsPlot
 
 girafe(
-  ggobj = EinstiegsPlot,
+  ggobj = img_graph,
   width_svg = 7,
   height_svg = 7*0.618,
     options = list(
