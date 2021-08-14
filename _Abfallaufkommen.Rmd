@@ -66,10 +66,12 @@ girafe(
 #zweite Idee Plot, Lollipop
 ggplot(PlastikinMillTonnen, aes(x= Jahre, y= MillTonnen)) +
   geom_point_interactive (aes (tooltip = MillTonnen), size=5, color="#00868B", alpha = 0.6) +
-   geom_segment( aes(x= Jahre, xend=Jahre, y= 0, yend= MillTonnen)) +
+   geom_segment( aes(x= Jahre, xend=Jahre, y= 0, yend= MillTonnen), alpha =0.2) +
    scale_x_continuous(breaks = c(2004,2006,2008,2010,2012,2014,2016,2018))+
   scale_y_continuous(limits = c(0, 3.5)) +
-  labs(title = "Aufkommen von Plastikabfall in Deutschland", subtitle = "Plastikabfall von 2004 bis 2018 in Millionentonnen", y= "Mt") + theme_minimal() -> Plot2
+  labs(title = "Aufkommen von Plastikabfall in Deutschland", subtitle = "Plastikabfall von 2004 bis 2018 in Millionentonnen", y= "Millionentonnen") +
+  theme_minimal_hgrid() +
+  theme(axis.title.x=element_blank()) -> Plot2
 
 girafe(
   ggobj = Plot2,
