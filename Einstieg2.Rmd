@@ -57,12 +57,13 @@ Einstieg_HL %>%
   geom_point_interactive(aes(tooltip = Gramm), colour= "#00868B", size = 4) +
     scale_y_continuous(limits = c(0, 300), breaks = c(0,50,100,150,200,250,300)) +
     scale_x_continuous (limits = c(0,60), breaks= c(1, 4, 25, 52), labels = c("eine Woche", "ein Monat", "halbes Jahr", "ein Jahr")) +
-  labs(title = "Durchschnittliche Aufnahme von Plastik pro Person", subtitle = "Mikroplastik (in Gramm) pro Woche entspricht ungefähr...") +
+  labs(title = "Durchschnittliche Aufnahme von Mikroplastik pro Person", subtitle = "Entsprechung der aufgenommenen Menge an Mikroplastik in Gramm") +
   annotate(geom = "text", label= "Kreditkarte", x= 5.5, y= 2.5) + 
   annotate(geom= "text", label= "Zahnbürste", x= 9.2, y= 20) +
 annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
    annotate(geom= "text", label= "Butter", x= 54.5,y= 250) +
-    theme_minimal_hgrid() -> EinstiegsPlot
+    theme_minimal_hgrid() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) -> EinstiegsPlot
   
 # dateipfad
 kreditkarte <- "icons/Kreditkarte.png"
