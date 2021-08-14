@@ -64,6 +64,13 @@ annotate(geom= "text", label= "Creme-Tube", x= 30, y= 120) +
    annotate(geom= "text", label= "Butter", x= 54.5,y= 250) +
     theme_minimal_hgrid() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) -> EinstiegsPlot
+
+girafe(
+  ggobj = EinstiegsPlot,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;")))
   
 # dateipfad
 kreditkarte <- "icons/Kreditkarte.png"
@@ -102,6 +109,7 @@ img_graph <- EinstiegsPlot +
 
 # plot mit icons ausspielen
 print (img_graph)
+
 ```
 
 
