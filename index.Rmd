@@ -87,8 +87,8 @@ Einstieg_HL %>%
     scale_y_continuous(limits = c(0, 300), breaks = c(0,50,100,150,200,250,300)) +
     scale_x_continuous (limits = c(0,60), breaks= c(1, 4, 25, 52), labels = c("eine Woche", "ein Monat", "halbes Jahr", "ein Jahr")) +
   labs(title = "Wie viel Mikroplastik landet in unserem Körper?", subtitle = "Die durchschnittliche Aufnahme von Mikroplastik pro Person\ninnerhalb eines Jahres mit Referenzobjekten", x = "") +
-  annotate(geom = "text", label= "Kreditkarte", x= 5.7, y= 2.8) + 
-  annotate(geom= "text", label= "Zahnbürste", x= 9.5, y= 21) +
+  annotate(geom = "text", label= "Kreditkarte", x= 6, y= 2.8) + 
+  annotate(geom= "text", label= "Zahnbürste", x= 10, y= 21) +
 annotate(geom= "text", label= "Creme-Tube", x= 30.5, y= 120) +
    annotate(geom= "text", label= "Butter", x= 55,y= 250) +
     theme_minimal_hgrid() +
@@ -116,12 +116,12 @@ img_graph <- EinstiegsPlot +
   inset_element(p = img2,
                 left = 0.08,
                 bottom = 0.17,
-                right = 0.17,
+                right = 0.15,
                 top = 0.3) +
   inset_element(p = img3,
                 left = 0.3,
                 bottom = 0.5,
-                right = 0.5,
+                right = 0.48,
                 top = 0.7) +
   inset_element(p = img4,
                 left = 0.7,
