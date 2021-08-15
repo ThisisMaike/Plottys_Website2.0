@@ -226,7 +226,7 @@ mydata2 %>%
   theme_minimal_grid() +
   theme(axis.text.y = element_text(vjust = 0)) +
   scale_fill_brewer(palette = "Set2") +
-  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "Problematisch ist die Mischung aus hoher Plastikproduktion in\n wohlhabenderen und inadäquater Entsorgung in ärmeren Ländern ", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung") +
+  labs(x = "Plastikmüllproduktion pro Kopf (täglich in g)", y = "Inadäquat entsorgter Plastikmüll pro Kopf (täglich in g)", title = "Problematisch ist die Mischung aus hoher Plastikproduktion in\n wohlhabenderen und inadäquater Entsorgung in ärmeren Ländern ", subtitle = "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung", size = "BIP pro Kopf (int.-$)") +
   scale_size(range=c(1,8), breaks=c(25000,50000,75000,100000),labels=c("25.000$","50.000$","75.000$","100.000$"),guide="legend") +
   annotate(geom = "label", label= "Deutschland", x= 490, y= 25) -> plot_per_capita_waste_mismanagement_GDP
 
