@@ -9,9 +9,11 @@ navbar:
     image: icons/Flasche.png
   search: TRUE
   right:
-    - text: "Home"
+    - text: "Start"
       href: index.html
-    - text: "About"
+    - text: "Infos über das Projekt"
       href: about.html
+
 output: distill::distill_article
 theme: "plottystheme.css"
+

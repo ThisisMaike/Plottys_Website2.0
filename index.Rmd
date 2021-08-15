@@ -6,6 +6,7 @@ description: |
 site: distill::distill_website
 ---
 
+![herkömmliche Kreditkarte aus Plastik.](icons/Kreditkarte.png)
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 #Pakete laden
@@ -78,6 +79,8 @@ mydata %>%
   select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (g/person/day)`, BIP, Kontinent) -> mydata2
 ```
 
+# Wie viel Mikroplastik landet in unserem Körper?
+
 ```{r}
 # plot
 Einstieg_HL %>%
@@ -86,7 +89,7 @@ Einstieg_HL %>%
   geom_point_interactive(aes(tooltip = Gramm), colour= "#00868B", size = 4) +
     scale_y_continuous(limits = c(0, 300), breaks = c(0,50,100,150,200,250,300)) +
     scale_x_continuous (limits = c(0,60), breaks= c(1, 4, 25, 52), labels = c("eine Woche", "ein Monat", "halbes Jahr", "ein Jahr")) +
-  labs(title = "Wie viel Mikroplastik landet in unserem Körper?", subtitle = "Die durchschnittliche Aufnahme von Mikroplastik pro Person\ninnerhalb eines Jahres mit Referenzobjekten", x = "") +
+  labs(title = "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten", x = "") +
   annotate(geom = "text", label= "Kreditkarte", x= 6, y= 2.8) + 
   annotate(geom= "text", label= "Zahnbürste", x= 10, y= 21) +
 annotate(geom= "text", label= "Creme-Tube", x= 30.5, y= 120) +
@@ -137,6 +140,7 @@ girafe(
     opts_tooltip(css = "background: #00868B; color: #FFFFFF;padding:2px;border-radius:2px;")))
 
 ```
+> Plastik begegnet uns überall in unserem Alltag und betrifft uns alle.
 
 # Wie hat sich die globale Plastikproduktion innerhalb der letzten Jahre entwickelt?
  
@@ -174,6 +178,10 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
+*da keine aktuelleren Daten gefunden wurden, ist hiermit seit 2015 gemeint.
+
+
+> Plastik ist ein zunehmendes, globales Phänomen.
 
 # Wie sieht das ganze im Ländervergleich aus?
 
@@ -181,7 +189,7 @@ girafe(
 #Platzhalter, Chunk für Weltkarte
 ```
 
-# Abfallaufkommen in Deutschland 
+# Wie viel Plastikmüll produziert Deutschland?
 
 ```{r}
 #Lollipop-Plot
@@ -201,6 +209,7 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
+> Deutschland als europäisches Negativbeispiel.
 
 # Was passiert mit dem ganzen Plastikmüll?
 
@@ -215,6 +224,7 @@ ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
   scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
   theme_minimal_hgrid(12)
 ```
+> Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
 
 # Zusammenhang Wohlstand und Plastik
 
@@ -240,4 +250,4 @@ girafe(
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.4;")))
 ```
-
+> Wohlstand ist ein Privileg und bietet Chancen, um sich mit Plastik und dessen Verwertung auseinandersetzen.
