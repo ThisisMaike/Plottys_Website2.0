@@ -2,11 +2,16 @@
 title: "Plastik in Plots - ein Projekt von den Plottys"
 description: |
   Herzlich willkommen auf unserer Website!
-  Hier gibt's einiges zu sehen und zu erfahren zum Thema Plastik!
+  Hier gibt's einiges zu sehen und zu erfahren zum Thema **Plastik**!
 site: distill::distill_website
 ---
 
-![herkömmliche Kreditkarte aus Plastik.](icons/Kreditkarte.png)
+![herkömmliche Kreditkarte aus Plastik*.](icons/Kreditkarte.png)
+
+<aside>
+*Plastik ist die alltagssprachliche Bezeichnung für verschiedene Arten von Kunststoff.
+</aside>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 #Pakete laden
@@ -178,7 +183,9 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
+<aside>
 *da keine aktuelleren Daten gefunden wurden, ist hiermit seit 2015 gemeint.
+</aside>
 
 
 > Plastik ist ein zunehmendes, globales Phänomen.
