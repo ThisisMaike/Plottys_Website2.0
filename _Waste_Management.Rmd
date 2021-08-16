@@ -26,5 +26,14 @@ ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
   scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
   theme_minimal_hgrid(12)
 
+
+global_plastic_fate <- readr::read_csv("data/global-plastic-fate.csv")
+
+global_plastic_fate %>%
+ggplot(aes(x= Year,y= `Estimated historic plastic fate`, fill= Entity)) +
+  scale_x_continuous(breaks = C("2000", "2005", "2010"))+
+geom_col(position="dodge")
+  
+
 ```
 
