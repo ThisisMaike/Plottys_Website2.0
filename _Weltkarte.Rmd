@@ -16,53 +16,80 @@ library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(ggiraph)
+library(colorspace)
 
 #install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
 #"ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata"))
 ```
 
 ```{r}
-waste_per_country <- readr::read_csv("data/plastic-waste-generation-total.csv")
-waste_per_country_capita <- readr::read_csv("data/plastic-waste-per-capita.csv")
-#Kombinieren der beiden Datensätze mit Waste generation per country und per capita waste per country
-combi <- inner_join(waste_per_country, waste_per_country_capita)
-combi%>%
-  rename(per_capita_kg = `Per capita plastic waste (kg/person/day)`) %>%
-  mutate(per_capita_g = per_capita_kg*1000) -> combi
-```
+#Karte Europa (2018)
 
-```{r}
+#Datenstze einlesen 
+waste_per_country <- readr::read_csv("data/waste_2018.csv")
+
+#Länder der Welt einlesen
 world <- ne_countries(scale = "medium", returnclass = "sf")
-#world%>%
-  #ggplot+
-  #geom_sf()+
-  #theme_void()
+
+
+#Länder mit dem Datensatz zusammenfügen 
 world %>%
- left_join(combi, by = c("gu_a3" = "Code")) -> world_plastic
-world_plastic%>%
-mutate(plastic_waste_tt = `Plastic waste generation (tonnes, total)`/ 1000)-> world_plastic
-#es fehlen noch für sehr viele Länder die Angaben zum Plastik waset
-world_plastic%>%
-  ggplot()+
-  aes(fill = plastic_waste_tt)+
-  geom_sf()
-#Wenn man die Zeile  #coord_sf(xlim = c(1,36), ylim = c(36, 60), expand = FALSE)+ rauslöscht, dann ist es rausgezoomt und so rein
-world_plastic%>%
-  ggplot()+
-  aes(fill = plastic_waste_tt)+
-  geom_sf_interactive(aes(tooltip = plastic_waste_tt), color= "black")+
-  scale_fill_viridis_c(option = "plasma", trans = "sqrt", alpha = 0.5)+
-  labs(fill="Plastikproduktion in tausend Tonnen")+
-  labs(title = "Globale Plastikproduktion pro Land im jahr 2010")+
-  scale_fill_viridis_b(option = "plasma", trans = "sqrt", alpha = 0.5)+
-  theme(legend.position = "top")+
-  labs(title = "Globale Plastikproduktion pro Land im Jahr 2010")+
-  theme_void() ->plastic_map
+ left_join(waste_per_country, by = c("gu_a3" = "Code"),all.x=TRUE) -> world_plastic
+
+#plastic waste per capita in Factor umwandeln 
+
+world_plastic<-world_plastic%>%
+  mutate_at(vars(Plastic_waste_annual_capita), as.numeric)
+
+b<-c(10,20,30,40,50,60,70,80)
+names<- c("<9", "10-19","20-29","30-39","40-49","50-59",">60")
+
+
+cut(world_plastic$Plastic_waste_annual_capita, breaks =b, labels = names) -> world_plastic$Plastic_waste_annual_capita
+
+
+#Grafik erstellen
+world_plastic %>%
+  ggplot() +
+  aes(fill = Plastic_waste_annual_capita) +
+  geom_sf_interactive(color = "black",
+                      aes(tooltip = name)) +
+  coord_sf(xlim = c(-23, 45), ylim = c(35, 70)) +
+  labs(title = "So viel Plastikmüll fällt in der EU an",
+       subtitle = "Plastikmüll pro Kopf in EU-ländern, 2018",
+       fill = "kg/Einwohner*in") +
+  theme(plot.title = element_text(size = 14, face = "bold")) +
+  theme_void() +
+  theme(legend.position = "bottom", legend.direction = "horizontal") +
+  scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map
+
+ 
+
 ggiraph::girafe(
-  ggobj = plastic_map, pointsize = 14, width_svg = 6, height_svg = 6* 0.618)
+  ggobj = plastic_map,
+  width_svg = 9,
+  height_svg = 9 * 0.618,
+  options = list(
+    opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
+    opts_hover(css = "fill: #00868B;"),
+    opts_hover_inv(css = "opacity: 0.3;")
+  )
+)
+
 ```
 
+
+
 ```{r}
+#Weltkarte
+
+#Daten bearbeiten
+world_plastic%>%
+  mutate(plastic_waste_tt = `Plastic waste generation (tonnes, total)`/ 1000)-> world_plastic
+
+
+#Wenn man die Zeile  #coord_sf(xlim = c(1,36), ylim = c(36, 60), expand = FALSE)+ rauslöscht, dann ist es rausgezoomt 
+
 world_plastic%>%
   ggplot()+
   aes(fill = plastic_waste_tt)+
@@ -73,7 +100,32 @@ world_plastic%>%
   labs(title = "Im Vergleich zu den europäischen Nachbarn wurde in\n
        Deutschland 2010 mehr Plastikabfall generiert", subtitle = "Aufkommen des Plastikabfalls pro Land im Jahr 2010")+
   theme_void() ->plastic_map
+
 ggiraph::girafe(
   ggobj = plastic_map, pointsize = 14, width_svg = 6, height_svg = 6* 0.618)
+
+
+
+
+scale_fill_continuous_sequential(
+    breaks = c(10, 20, 30, 40, 50, 60, 70),
+    labels = c("10", "20", "30", "40", "50", "60", "70"),
+    palette = "BluGrn",
+    na.value = "grey 97"
+  )
+```
+```{r}
+# Backup 
+
+#world_plastic<-world_plastic%>%
+  #mutate_at(vars(Plastic_waste_annual_total_t), as.numeric)
+
+#Kombinieren der beiden Datensätze
+#combi <- inner_join(waste_per_country, waste_per_capita_2010)
+
+#combi%>%
+# rename(per_capita_kg = `Per capita plastic waste (kg/person/day)`) %>%
+# mutate(per_capita_g = per_capita_kg*1000) -> combi
+
 ```
 
