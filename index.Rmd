@@ -32,6 +32,12 @@ library(ggthemes)
 library(psych)
 library(readxl)
 library(gganimate)
+library(devtools)
+library(usethis)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
 
 ```
 
@@ -193,7 +199,58 @@ girafe(
 # Wie sieht das ganze im Ländervergleich aus?
 
 ```{r}
-#Platzhalter, Chunk für Weltkarte
+#Karte Europa (2018)
+
+#Datenstze einlesen 
+waste_per_country <- readr::read_csv("data/waste_2018.csv")
+
+#Länder der Welt einlesen
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+
+#Länder mit dem Datensatz zusammenfügen 
+world %>%
+ left_join(waste_per_country, by = c("gu_a3" = "Code"),all.x=TRUE) -> world_plastic
+
+#plastic waste per capita in Factor umwandeln 
+
+world_plastic<-world_plastic%>%
+  mutate_at(vars(Plastic_waste_annual_capita), as.numeric)
+
+b<-c(10,20,30,40,50,60,70,80)
+names<- c("<9", "10-19","20-29","30-39","40-49","50-59",">60")
+
+
+cut(world_plastic$Plastic_waste_annual_capita, breaks =b, labels = names) -> world_plastic$Plastic_waste_annual_capita
+
+
+#Grafik erstellen
+world_plastic %>%
+  ggplot() +
+  aes(fill = Plastic_waste_annual_capita) +
+  geom_sf_interactive(color = "black",
+                      aes(tooltip = name)) +
+  coord_sf(xlim = c(-23, 45), ylim = c(35, 70)) +
+  labs(title = "So viel Plastikmüll fällt in der EU an",
+       subtitle = "Plastikmüll pro Kopf in EU-ländern, 2018",
+       fill = "kg/Einwohner*in") +
+  theme(plot.title = element_text(size = 14, face = "bold")) +
+  theme_void() +
+  theme(legend.position = "bottom", legend.direction = "horizontal") +
+  scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map
+
+ 
+
+ggiraph::girafe(
+  ggobj = plastic_map,
+  width_svg = 9,
+  height_svg = 9 * 0.618,
+  options = list(
+    opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
+    opts_hover(css = "fill: #00868B;"),
+    opts_hover_inv(css = "opacity: 0.3;")
+  )
+)
 ```
 
 # Wie viel Plastikmüll produziert Deutschland?
