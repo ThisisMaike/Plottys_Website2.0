@@ -63,6 +63,7 @@ world_plastic %>%
   theme(legend.position = "bottom", legend.direction = "horizontal") +
   scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map
 
+
  
 
 ggiraph::girafe(

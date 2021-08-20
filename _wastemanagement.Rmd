@@ -1,0 +1,71 @@
+---
+title: "wastemanagement"
+description: |
+  Hier gibt es Hintergrundinformationen zur Entstehung dieser Website.
+site: distill::distill_website
+---
+  
+```{r setup, include=FALSE}
+
+
+library(tidyverse)
+library(dbplyr)
+library(ggplot2)
+library(plotly)
+library(tidyr)
+library(plyr)
+
+#Legende muss noch ergänzt werden 
+#Hier wird gezeigt wie viele Tonnen Plastik jährlich in Deutschland recycelt, auf Mülldeponien gelagert und energetisch verwertet werden (von 2010-2018)
+
+waste_mgmt <- readr::read_csv("data/waste_management.csv")
+
+
+ggplot()+
+  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, tooltip=Recycling), colour= "#66CC66", size=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, data_id=Recycling, tooltip=Recycling), colour="#66CC66", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery), color="#33CCCC", size= 1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total), color= "#6699FF", lwd=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
+  labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \n Neben der Produktion ist auch die Entsorgung von \n bereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
+  scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
+  theme_minimal_hgrid()->waste_plot
+
+girafe(
+  ggobj = waste_plot,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover_inv(css = "opacity: 0.2;")))
+
+
+
+```
+
+```{r}
+#Versuch mit Plotly 
+
+ggplot()+
+  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling), colour= "#66CC66", size=1, alpha=0.6)+
+  geom_point(data= waste_mgmt, mapping = aes(x = Year, y= Recycling), colour="#66CC66", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery), color="#33CCCC", size= 1, alpha=0.6)+
+  geom_point(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery), color= "#33CCCC", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total), color= "#6699FF", lwd=1, alpha=0.6)+
+  geom_point(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total), color= "#6699FF", size=4)+
+  labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall?")+
+  scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
+  theme_minimal_hgrid() ->waste_plot
+
+
+fig<-ggplotly(waste_plot)
+
+fig%>% 
+  add_trace(y = ~Recycling, name = 'Recycling') ->fig
+
+  
+fig 
+```
+
