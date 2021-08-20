@@ -10,3 +10,10 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 ---
 ## Datenquellen
+
+K. Senathirajah, T. Palanisami (2009):
+How much microplastics are we ingesting? Estimation of the mass of microplastics ingested.Report for WWF. Singapore. 
+
+##### Die Daten für die Visualisierung der globalen Plastikproduktion, der kumulativen globalen Plastikproduktion, der Entsorgungsarten und des Zusammenhangs aus Wohlstand und Plastiabfall wurden der nachfolgenden Quelle entnommen. Ebenso wurden die dort gegebenen Definitionen der Begriffe übernommen:
+
+H. Ritchie, M. Roser (2018): Plastic Pollution. Veröffentlicht online bei OurWorldInData.org. ['https://ourworldindata.org/plastic-pollution'] 

@@ -1,8 +1,16 @@
 ---
 title: "Plastik in Plots - ein Projekt von den Plottys"
 description: |
-  Herzlich willkommen auf unserer Website!
-  Hier gibt's einiges zu sehen und zu erfahren zum Thema **Plastik**!
+  Herzlich willkommen auf unserer Website zum Thema **Plastik**!
+  
+  Bestimmt ist dir die Thematik Plastikmüll in den letzten Jahren auch immer wieder    begegnet und du weißt, dass Plastik grundsätzlich problematisch ist. Aber was genau   heißt das?
+  
+  In den Vergangenheit sind immer wieder Bilder und Videos aufgetaucht, die die        Folgen des Plastikproblems auf dramatische Art und Weise ansprechen:                 Meeresschildkröten, denen lange Plastikstrohhalme aus der Nase gezogen werden; die   Meeresoberfläche, die aussieht wie ein Flickenteppich aus buntem Plastik oder        Kinder, deren Spielplatz die scheinbar unendlich weite Mülldeponie aus Plastik ist.
+
+  Und dennoch ist Plastik immer noch ein fester Bestandteil unseres Alltags, z. B.     wenn wir Lebensmittel kaufen, Sportklamotten anziehen oder uns die Zähne putzen.     Das geht sogar so weit, dass Plastik in unserem Körper landet – und zwar so viel,    dass man sagen könnte:
+  
+  **_Jeder Mensch ist pro Woch eine Kreditkarte._** 
+
 site: distill::distill_website
 ---
 
@@ -92,6 +100,8 @@ mydata %>%
 
 # Wie viel Mikroplastik landet in unserem Körper?
 
+Diese Grafik verdeutlicht die Mengen an Mikroplastik die jeder Mensch laut einer Studie des WWF aufnimmt  – über die Luft beim Atmen, das Trinkwasser und über die Nahrungsaufnahme. Nach einem Jahr entspricht die Menge des aufgenommenen Plastiks bereits einem Päckchen Butter. 
+
 ```{r}
 # plot
 Einstieg_HL %>%
@@ -154,6 +164,9 @@ girafe(
 > Plastik begegnet uns überall in unserem Alltag und betrifft uns alle.
 
 # Wie hat sich die globale Plastikproduktion innerhalb der letzten Jahre entwickelt?
+
+Mit dieser Website kannst du dem Plastik-Problem auf den Grund gehen, anhand von Zahlen und Daten die Ursachen ergründen und versuchen zu verstehen, was denn nun das eigentliche Problem mit dem Plastik ist. Dazu wird hier zunächst ein Blick auf die globale Entwicklung der Plastikproduktion geworfen: 
+
  
 ```{r}
 global_plastic %>%
@@ -171,6 +184,12 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFFFF;padding:2px;border-radius:2px;")))
 ```
+
+Seit 1950 steigt die Menge an produziertem Plastik nahezu jedes Jahr weiter an. 2015 wurden weltweit 381 Millionen Tonnen Plastik  produziert. Im Vergleich zu 1850 mit etwa 2 Millionen Tonnen hat sich die Produktion fast um das 200-fache erhöht. Obwohl heutzutage bekannt ist, dass die Mengen an Plastik auf der Welt problematisch sind, steigt die Menge an Plastik, die wir produzieren, weiter an. 
+
+**Übrigens**: Die Grafiken auf dieser Website sind interaktiv. In dem Du mit der Maus über einzelne Datenpunkte hoverst, werden dir die jeweiligen Werte angezeigt. 
+
+# Wieviel Plastik gibt es mittlerweile auf der Welt?
 
 ```{r}
 cumulative_global_plastic %>%
@@ -193,10 +212,11 @@ girafe(
 *da keine aktuelleren Daten gefunden wurden, ist hiermit seit 2015 gemeint.
 </aside>
 
+Wenn wir die Mengen an produziertem Plastik kumulieren, wird deutlich, dass mehr als die Hälfte der insgesamt 7,82 Milliarden Tonnen innerhalb der letzten 15 Jahre* erzeugt wurden. Was könnte dieser Trend für die kommenden 15 Jahre bedeuten?
 
 > Plastik ist ein zunehmendes, globales Phänomen.
 
-# Wie sieht das ganze im Ländervergleich aus?
+# Sind alle Länder gleichermaßen für diesen Anstieg verantwortlich?
 
 ```{r}
 #Karte Europa (2018)
@@ -253,7 +273,11 @@ ggiraph::girafe(
 )
 ```
 
-# Wie viel Plastikmüll produziert Deutschland?
+Wir werfen einen Blick zu unseren europäischen Nachbarn. Auf dem Kartenausschnitt wird ersichtlich, wie unterschiedlich das pro Kopf Aufkommen an Plastikmüll im europäischen Vergleich ausfällt. In Spanien ist es beispielsweise mit unter 9 Kilogramm pro Einwohner mit am geringsten. Italien hingegen hat  mit über 60 Kilogramm Plastik pro Einwohner das höchste Abfallaufkommen. Deutschland liegt mit einem Wert zwischen 20 und 29 Kilogramm pro Einwohner im Mittelfeld. Dass das nicht immer so war, werden wir später noch an einer Grafik mit älteren Daten sehen, wo Deutschland innereuropäisch als Negativbeispiel heraussticht.
+
+Die nachfolgende Grafik stellt Deutschland in den Fokus und zeigt die Entwicklung des Abfallaufkommens hier vor Ort auf.
+
+# Wie viel Plastikmüll erzeugt Deutschland?
 
 ```{r}
 #Lollipop-Plot
@@ -273,6 +297,8 @@ girafe(
     options = list(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
+Zwischen 2004 und 20018 hat die Menge an Plastikabfällen jedes Jahr zugenommen. Jedoch war der Zuwachs in den letzten Jahren geringer. 
+
 > Deutschland als europäisches Negativbeispiel.
 
 # Was passiert mit dem ganzen Plastikmüll?
@@ -288,9 +314,12 @@ ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
   scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
   theme_minimal_hgrid(12)
 ```
+
+Vor 1980 wurden fast 100% des weltweiten Plastikabfalls weggeworfen. Das bedeutet, dass die Abfälle weder recycelt noch verbrannt wurden, sondern auf geschlossenen sowie offenen Mülldeponien entsorgt werden oder in der Umwelt verloren gehen. Bis 2015 hat sich das Verhältnis verändert: Etwa 25 Prozent der Abfälle werden verbrannt und 20 Prozent recycelt. Dennoch wird der größte Teil der Abfälle immer noch weggeworfen und kann so in die Umwelt gelangen.
+
 > Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
 
-# Zusammenhang Wohlstand und Plastik
+# Wie hängen Produktion und Entsorgung mit dem Wohlstand eines Landes zusammen?
 
 ```{r}
 mydata2 %>%
@@ -314,4 +343,9 @@ girafe(
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.4;")))
 ```
+
+Hier wird erkenntlich, dass Plastikkonsum und Wohlstand zusammenhängen, da in wohlhabenden Ländern auch tendenziell mehr Plastikmüll entsteht. Gleichzeitig sind überwiegend Länder mit einem kleinen bis mittleren Bruttoindlandsprodukt (pro Kopf) diejenigen, die einen Großteil des dort aufkommenden Plastikabfalls inadequat entsorgen. Inadequat entsorgter Plastikmüll ist der Müll, der direkt auf der Straße bzw. in der Umwelt landet. Außerdem werden Abfälle hierzu gezählt, die nicht formell bewirtschaftet werden, sondern auf offenen, unkontrollierten Deponien landen und von dort über Gewässer oder Wind in die Ozeane gelangen können. 
+
+Für diese Visualisierung wurden Daten von 2010 verwendet. Abweichend zur Karte oben ist Deutschland hier innerhalb von Europa mit Abstand das Land mit dem größten Plastikabfallaufkommen pro Kopf. Auch wenn nur ein kleiner Anteil dieser Abfälle inadequat entsorgt wird, fällt die Bundesrepublik hier als Negativbispiel auf. 
+
 > Wohlstand ist ein Privileg und bietet Chancen, um sich mit Plastik und dessen Verwertung auseinandersetzen.
