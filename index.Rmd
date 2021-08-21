@@ -200,11 +200,14 @@ Obwohl heutzutage bekannt ist, dass die Mengen an Plastik auf der Welt problemat
 cumulative_global_plastic %>%
   rename(cgpp = `Cumulative global plastics production (million tonnes)`) %>%
  mutate(cgpp = as.numeric(cgpp)/1000000000) %>%
+mutate(cgpp =  round(cgpp, 2)) %>%
 ggplot(aes(x = Year, y = cgpp )) + geom_area(fill = '#00868B', alpha= 0.6) + geom_point_interactive(aes(data_id = cgpp, tooltip = cgpp), color = '#00868B') +
+  geom_vline(xintercept = 2000, color = "lightgrey") +
   scale_x_continuous(limits = c(1950, 2015), breaks = c(1950, 1960, 1970, 1980, 1990, 2000, 2010, 2015), expand = c(0.02, 0.02)) +
   scale_y_continuous(limits = c(0, 8), breaks = c(0, 1, 2, 3, 4, 5, 6, 7, 8), expand = c(0,0)) +
   labs(x = "", y = "Plastik in Milliarden Tonnen", title = "Mehr als die Hälfte des weltweit produzierten Plastiks\n wurde in den letzten 15 Jahren* produziert", subtitle = "Kumulation  der globalen Plastikproduktion von 1950 bis 2015" ) +
-  theme_minimal_hgrid(12) -> plot_cumulative_global_plastic
+  theme_minimal_hgrid(12) +
+  annotate(geom = "text", label= "57%", x= 2008, y= 3, color = "white", size = 8)-> plot_cumulative_global_plastic
 
 girafe(
   ggobj = plot_cumulative_global_plastic,

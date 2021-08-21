@@ -11,9 +11,11 @@ knitr::opts_chunk$set(echo = FALSE)
 ---
 ## Datenquellen
 
+##### Quelle der Abbildung: "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten":
+
 K. Senathirajah, T. Palanisami (2009):
 How much microplastics are we ingesting? Estimation of the mass of microplastics ingested.Report for WWF. Singapore. 
 
-##### Die Daten für die Visualisierung der globalen Plastikproduktion, der kumulativen globalen Plastikproduktion, der Entsorgungsarten und des Zusammenhangs aus Wohlstand und Plastiabfall wurden der nachfolgenden Quelle entnommen. Ebenso wurden die dort gegebenen Definitionen der Begriffe übernommen:
+##### Quelle der Abbildungen: "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015", "Kumulation der globalen Plastikproduktion von 1950 bis 2015" und "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung 2010":
 
 H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org. ['https://ourworldindata.org/plastic-pollution'] 
