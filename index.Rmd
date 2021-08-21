@@ -46,7 +46,6 @@ library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
 
-
 ```
 
 
@@ -313,9 +312,36 @@ ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
   labs(x= "", y= "prozentualer Anteil", title= "Globaler Kunststoffabfall differnziert nach Entsorgungsart, 1980 bis 2015")+
   scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
   theme_minimal_hgrid(12)
+
 ```
 
 Vor 1980 wurden fast 100% des weltweiten Plastikabfalls weggeworfen. Das bedeutet, dass die Abfälle weder recycelt noch verbrannt wurden, sondern auf geschlossenen sowie offenen Mülldeponien entsorgt werden oder in der Umwelt verloren gehen. Bis 2015 hat sich das Verhältnis verändert: Etwa 25 Prozent der Abfälle werden verbrannt und 20 Prozent recycelt. Dennoch wird der größte Teil der Abfälle immer noch weggeworfen und kann so in die Umwelt gelangen.
+
+```{r}
+waste_mgmt <- readr::read_csv("data/waste_management.csv")
+
+
+ggplot()+
+  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, tooltip=Recycling), colour= "#66CC66", size=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, data_id=Recycling, tooltip=Recycling), colour="#66CC66", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery), color="#33CCCC", size= 1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total), color= "#6699FF", lwd=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
+  labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \n Neben der Produktion ist auch die Entsorgung von \n bereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
+  scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
+  theme_minimal_hgrid()->waste_plot
+
+girafe(
+  ggobj = waste_plot,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover_inv(css = "opacity: 0.2;")))
+```
+
 
 > Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
 
