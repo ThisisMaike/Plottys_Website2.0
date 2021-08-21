@@ -1,10 +1,10 @@
 ---
-title: "Infos über das Projekt"
+title: "Infos ueber das Projekt"
 description: |
   Hier gibt es Hintergrundinformationen zur Entstehung dieser Website.
 ---
 
-Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen möchte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensätze zu kombinieren und so aufzubereiten, dass ein Mehrwert für den Rezipienten entsteht.
+Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen moechte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensaetze zu kombinieren und so aufzubereiten, dass ein Mehrwert fuer den Rezipienten entsteht.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -16,4 +16,4 @@ How much microplastics are we ingesting? Estimation of the mass of microplastics
 
 ##### Die Daten für die Visualisierung der globalen Plastikproduktion, der kumulativen globalen Plastikproduktion, der Entsorgungsarten und des Zusammenhangs aus Wohlstand und Plastiabfall wurden der nachfolgenden Quelle entnommen. Ebenso wurden die dort gegebenen Definitionen der Begriffe übernommen:
 
-H. Ritchie, M. Roser (2018): Plastic Pollution. Veröffentlicht online bei OurWorldInData.org. ['https://ourworldindata.org/plastic-pollution'] 
+H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org. ['https://ourworldindata.org/plastic-pollution'] 
