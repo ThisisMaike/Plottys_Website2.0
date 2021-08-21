@@ -5,7 +5,6 @@ description: |
 
 site: distill::distill_website
 ---
-
 ![herkömmliche Kreditkarte aus Plastik*.](icons/Kreditkartegroß.png)
 
 <aside>
@@ -20,7 +19,7 @@ In den Vergangenheit sind immer wieder Bilder und Videos aufgetaucht, die die   
 
 Und dennoch ist Plastik immer noch ein fester Bestandteil unseres Alltags, z. B.     wenn wir Lebensmittel kaufen, Sportklamotten anziehen oder uns die Zähne putzen.     Das geht sogar so weit, dass Plastik in unserem Körper landet – und zwar so viel,    dass man sagen könnte:
 
-**_Jeder Mensch ist pro Woch eine Kreditkarte._** 
+**_Jeder Mensch isst pro Woche eine Kreditkarte._** 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -100,8 +99,8 @@ mydata %>%
   select(Entity, `Per capita mismanaged plastic waste`, `Per capita plastic waste (g/person/day)`, BIP, Kontinent) -> mydata2
 ```
 
-# Wie viel Mikroplastik landet in unserem Körper?
 
+# Wie viel Mikroplastik landet in unserem Körper?
 
 ```{r}
 # plot
@@ -166,6 +165,7 @@ Die Angaben beziehen sich auf eine Studie im Auftrag des WWF. Das meiste Mikropl
 
 > Plastik begegnet uns überall in unserem Alltag und betrifft uns alle.
 
+
 # Wie hat sich die globale Plastikproduktion innerhalb der letzten Jahre entwickelt?
 
 Mit dieser Website kannst du dem Plastik-Problem auf den Grund gehen, anhand von Zahlen und Daten die Ursachen ergründen und versuchen zu verstehen, was denn nun das eigentliche Problem mit dem Plastik ist. Dazu wird hier zunächst ein Blick auf die globale Entwicklung der Plastikproduktion geworfen: 
@@ -194,6 +194,7 @@ Obwohl heutzutage bekannt ist, dass die Mengen an Plastik auf der Welt problemat
 **Übrigens**: Die Grafiken auf dieser Website sind interaktiv. In dem Du mit der Maus über einzelne Datenpunkte hoverst, werden dir die jeweiligen Werte angezeigt.
 </aside>
  
+
 # Wieviel Plastik gibt es mittlerweile auf der Welt?
 
 ```{r}
@@ -223,6 +224,7 @@ girafe(
 Was könnte dieser Trend für die **kommenden 15 Jahre** bedeuten?
 
 > Der Plastikbedarf ist ein zunehmendes, globales Phänomen.
+
 
 # Sind alle Länder gleichermaßen für diesen Anstieg verantwortlich?
 
@@ -284,6 +286,7 @@ ggiraph::girafe(
 Wirf hier einen Blick zu unseren europäischen Nachbarn.
 Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder von uns im Jahr 2018 35 Kilogramm Plastik verbraucht. SPäter wirst du an einer Grafik mit Daten aus 2010 sehen, das Deutschland noch vor einigen Jahren ein innereuropäisches Negativbeispiel war. 
 
+
 # Wie viel Plastikmüll erzeugt Deutschland?
 
 ```{r}
@@ -307,6 +310,7 @@ girafe(
 
 > Wenn auch gering, steigt die Menge an Plastikabfall jedes Jahr weiter an.
 
+
 # Was passiert mit dem ganzen Plastikmüll?
 
 ```{r}
@@ -324,6 +328,7 @@ ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
 Unter Weggeworfen wird hier der Müll verstanden, der weder recycelt noch verbrannt wird, sondern auf Mülldeponien oder auf der Straße landet. Auch von der Mülldeponie aus kann unser Müll über Wind und Wetter in die Umwelt gelangen. 
 
 > Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
+
 
 # Wie hängen Produktion und Entsorgung mit dem Wohlstand eines Landes zusammen?
 
@@ -356,7 +361,9 @@ Abweichend zur Europakarte von 2018 war Deutschland 2010 innerhalb von Europa mi
 
 > Wohlstand ist ein Privileg und bietet Chancen, um sich mit Plastik und dessen Verwertung auseinandersetzen.
 
-**Plastik ist ein komplexes Problem, was sowohl die immer noch steigende Produktion als auch Fehler bei der Entsorgung und das Recyclingsystem an sich umfasst. Aber: Wissen ist der erste Schritt zur Problemlösung und wir hoffen, dass wir dir hier einen besseren Üerblick über Plastik geben konnten.**
+
+**Plastik ist ein komplexes Problem, welches sowohl die immer noch steigende Produktion als auch Fehler bei der Entsorgung und das Recyclingsystem an sich umfasst. Aber: Wissen ist der erste Schritt zur Problemlösung und wir hoffen, dass wir dir hier einen besseren Üerblick über Plastik geben konnten.**
+
 
 Wenn Du möchtest, erfährst du hier noch mehr zum Thema Plastik:
 [Klick mich, um zu erfahren, wie die EU bis 2050 eine Kreislaufwirtschaft erreichen möchte!](https://www.europarl.europa.eu/news/de/headlines/priorities/kreislaufwirtschaft/20210128STO96607/wie-will-die-eu-bis-2050-eine-kreislaufwirtschaft-erreichen)

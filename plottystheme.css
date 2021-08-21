@@ -82,6 +82,7 @@ d-appendix {
 
 body {
   background-color: #ffffff;
+  text-align: justify;
 
 
   ::-webkit-scrollbar {
@@ -101,4 +102,11 @@ body {
   background: rgba(27, 164, 176, 1);
   -webkit-box-shadow: inset 0 0 6px rgba(27, 164, 176, 1);
 }
+}
+
+h1, h2, h3, h4, h5, h6, aside, quotes {
+  text-align: left;
+
+
+
 
