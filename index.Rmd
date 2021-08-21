@@ -6,7 +6,7 @@ description: |
 site: distill::distill_website
 ---
 
-![herkömmliche Kreditkarte aus Plastik*.](icons/Kreditkarte.png)
+![herkömmliche Kreditkarte aus Plastik*.](icons/Kreditkartegroß.png)
 
 <aside>
 *Plastik ist die alltagssprachliche Bezeichnung für verschiedene Arten von Kunststoff.
