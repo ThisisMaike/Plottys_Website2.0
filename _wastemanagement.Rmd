@@ -14,6 +14,8 @@ library(ggplot2)
 library(plotly)
 library(tidyr)
 library(plyr)
+library(ggiraph)
+library(cowplot)
 
 #Legende muss noch ergänzt werden 
 #Hier wird gezeigt wie viele Tonnen Plastik jährlich in Deutschland recycelt, auf Mülldeponien gelagert und energetisch verwertet werden (von 2010-2018)
