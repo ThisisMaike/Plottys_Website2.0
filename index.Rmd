@@ -284,7 +284,7 @@ ggiraph::girafe(
 ```
 
 Wirf hier einen Blick zu unseren europäischen Nachbarn.
-Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder von uns im Jahr 2018 35 Kilogramm Plastik verbraucht. SPäter wirst du an einer Grafik mit Daten aus 2010 sehen, das Deutschland noch vor einigen Jahren ein innereuropäisches Negativbeispiel war. 
+Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder von uns im Jahr 2018 35 Kilogramm Plastik verbraucht. Später wirst du an einer Grafik mit Daten aus 2010 sehen, das Deutschland noch vor einigen Jahren ein innereuropäisches Negativbeispiel war. 
 
 
 # Wie viel Plastikmüll erzeugt Deutschland?
