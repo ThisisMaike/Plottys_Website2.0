@@ -9,7 +9,8 @@ Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" de
 knitr::opts_chunk$set(echo = FALSE)
 ```
 ---
-## Datenquellen (Chronologische Reihenfolge entsprechend der Webseite)
+## Datenquellen
+(Chronologische Reihenfolge entsprechend der Webseite)
 
 ##### Quelle der Abbildung "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten"
 
@@ -20,7 +21,8 @@ How much microplastics are we ingesting? Estimation of the mass of microplastics
 
 Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
 
-License 4.0 (CC BY-NC)
+License 4.0 (CC BY-NC)  
+
 * Die verwendeten Daten wurden für die Visualisierung umbenannt und umgerechnet (/1000000)
 
 Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
@@ -29,7 +31,8 @@ Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffen
 
 Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
 
-License 4.0 (CC BY-NC)
+License 4.0 (CC BY-NC)  
+
 * Die verwendeten Daten wurden für die Visualisierung umbenannt, umgerechnet (/1000000000) und auf zwei Nachkommastellen gerundet. 
 
 Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
@@ -40,10 +43,11 @@ Jambeck, J. R., Geyer, R., Wilcox, C., Siegler, T. R., Perryman, M., Andrady, A.
 
 Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution':
 
-Anmerkungen zu den Daten aus der Abrufquelle:
+Anmerkungen zu den Daten aus der Abrufquelle:  
+
 * "Data on total national plastic waste generation was calculated by Our World in Data based on per capita plastic waste generation data published in Jambeck et al. (2015), and total population data published in the World Bank, World Development Indicators (available at: https://datacatalog.worldbank.org/dataset/world-development-indicators)."
 
-*"Jambeck et al. quantified municipal and plastic waste streams from coastal populations in 2010. Their estimates were therefore multiplied by coastal population numbers to derive national plastic waste at risk of entering oceans and waterways. Here we calculate the total plastic waste generation by instead multiplying by total population figures."
+* "Jambeck et al. quantified municipal and plastic waste streams from coastal populations in 2010. Their estimates were therefore multiplied by coastal population numbers to derive national plastic waste at risk of entering oceans and waterways. Here we calculate the total plastic waste generation by instead multiplying by total population figures."
 
 #### Quelle der Abbildung "So viel Plastikmüll fällt in der EU an"
 Eurostat: Generation of waste by waste category, hazardousness and NACE Rev. 2 activity. Letzte Datenaktualisierung: 11/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/env_wasgen/default/table?lang=en'
@@ -60,14 +64,18 @@ Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 
 
 Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
 
-License 4.0 (CC BY-NC)
+License 4.0 (CC BY-NC) 
+
 * Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
+
 Anmerkungen zu den Daten aus der Abrufquelle:
-*"Estimates of the proportion of plastic waste discarded, recycled and incinerated based on data in Geyer et al. (2017)."
+
+* "Estimates of the proportion of plastic waste discarded, recycled and incinerated based on data in Geyer et al. (2017)."
   
 * Geyer et al. (2017) note an average linear rate of increase in recycling of 0.7% per year from 1990 onwards, and 0.7% per year for incineration from 1980 onwards. 
 
 * Data for 1980-2015 is based on historical estimates. Data from 2016-2050 is based solely on extrapolation of consistent growth trends of 0.7% for recycling and incineration; it therefore represents business-as-usual growth but should not be interpreted as a direct projection.
+
 * Eigene Anpassungen der Daten: Die verwendeten Daten wurden für die Visualisierung umbenannt und die Jahre 1980, 2000, 2010 und 2015 herausgefiltert.
 
 #### Quelle der Abbildung "Management des Plastikabfalls in Deutschland von 2010 bis 2018" 
@@ -81,9 +89,11 @@ Für die Visualisierung wurden mehrere Datensätze der über die folgende Quelle
  H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
  
  1. Plastikmüllproduktion pro Kopf und inadäquat entsorgter Plastikmüll pro Kopf
+ 
 Jambeck, J. R., Geyer, R., Wilcox, C., Siegler, T. R., Perryman, M., Andrady, A., ... & Law, K. L. (2015). Plastic waste inputs from land into the ocean. Science, 347(6223), 768-771. http://science.sciencemag.org/content/347/6223/768/
 
-Anmerkungen zu den Daten aus der Abrufquelle:
+Anmerkungen zu den Daten aus der Abrufquelle:  
+
 * "Jambeck et al. quantified municipal and plastic waste streams from coastal populations in 2010 with projections to the year 2025."
 
 * "The authors' definition of a coastal population is based on those who live within 50km of a coastal water. Such populations are those for which plastic waste is at risk of leading to ocean debris. Sources further inland are significantly less likely to end up as ocean debris."
@@ -100,7 +110,7 @@ Quelle:	World Bank, International Comparison Program database.
 http://data.worldbank.org/data-catalog/world-development-indicators
 
 * Die verwendeten Daten wurden für die Visualisierung umbenannt, nur vollständige Datensätze selektiert und wie folgend umgerechnet:
-  Variable `Per capita mismanaged plastic waste`:*1000
+  Variable `Per capita mismanaged plastic waste`*1000
   Variable `Per capita plastic waste (kg/person/day)` *1000
 
 
