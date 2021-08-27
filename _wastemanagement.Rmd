@@ -9,11 +9,16 @@ site: distill::distill_website
 
 
 library(tidyverse)
-library(dbplyr)
+#library(dbplyr)
+library(dplyr)
 library(ggplot2)
 library(plotly)
 library(tidyr)
-library(plyr)
+#library(plyr)
+library(scales)
+library(ggforce)
+library(cowplot)
+library(patchwork)
 
 #Legende muss noch ergänzt werden 
 #Hier wird gezeigt wie viele Tonnen Plastik jährlich in Deutschland recycelt, auf Mülldeponien gelagert und energetisch verwertet werden (von 2010-2018)
@@ -22,13 +27,14 @@ waste_mgmt <- readr::read_csv("data/waste_management.csv")
 
 
 ggplot()+
-  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, tooltip=Recycling), colour= "#66CC66", size=1, alpha=0.6)+
+  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, tooltip=Recycling, color= "Recyceln"), fill="#66CC66", size=1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, data_id=Recycling, tooltip=Recycling), colour="#66CC66", size=4)+
-  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery), color="#33CCCC", size= 1, alpha=0.6)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, color="Verbrennung"), size= 1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
-  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total), color= "#6699FF", lwd=1, alpha=0.6)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, color= "Entsorgung (auf Mülldeponien)"), lwd=1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
-  labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \n Neben der Produktion ist auch die Entsorgung von \n bereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
+  scale_color_manual(name = "Entsorgungsart", values = c("Recyceln" = "#66CC66", "Verbrennung" = "#33CCCC", "Entsorgung (auf Mülldeponien)" = "#6699FF"))+
+labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \nNeben der Produktion ist auch die Entsorgung von \nbereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
   scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
   theme_minimal_hgrid()->waste_plot
 
@@ -40,7 +46,6 @@ girafe(
     opts_tooltip(css = "background: #F5F5F5; color: #000000;"),
     opts_hover(css = "background: #F5F5F5; color: #000000;"),
     opts_hover_inv(css = "opacity: 0.2;")))
-
 
 
 ```
@@ -62,6 +67,14 @@ ggplot()+
 
 fig<-ggplotly(waste_plot)
 
+fig <-fig %>% add_trace(y = ~Engery_recovery, name ='Energy_recovery', mode= 'lines+markers')
+
+fig 
+  
+  
+  
+
+
 fig%>% 
   add_trace(y = ~Recycling, name = 'Recycling') ->fig
 
@@ -70,19 +83,205 @@ fig
 ```
 
 ```{r}
-# Entwicklung Welt 
+
+# Entwicklung Welt(1980-2015)
+#Entwurf für Website 
 
 global_plastic_fate <- readr::read_csv("data/global-plastic-fate.csv")
 
 
-global_plastic_fate %>%
-group_by(Entity)%>%
-ggplot(aes(y=`Estimated historic plastic fate`, fill= Entity, position= "dodge")) +
- geom_bar()+
- scale_x_continuous(limits = c(1980, 2015), breaks = c(1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02))+
-  scale_y_continuous(limits = c(0, 100), breaks = c(20, 40, 60, 80, 100))+
-  labs(x= "", y= "prozentualer Anteil", title= "Globaler Kunststoffabfall differnziert nach Entsorgungsart, 1980 bis 2015")+
-  scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
-  theme_minimal_hgrid(12)
+global_plastic_fate%>%
+  rename(plastic = `Estimated historic plastic fate`)-> global_plastic_fate
+
+global_plastic_fate%>%
+  mutate(plastic = plastic/100)-> global_plastic_fate
+
+
+#Plot für das JAhr 1980
+
+pie_data_1 <- global_plastic_fate %>%
+  filter(Year== 1980)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_1 <- ggplot(pie_data_1)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "white", size= 6)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "1980")
+
+plot_1
+
+#Plot für das Jahr 2000
+
+pie_data_2 <- global_plastic_fate %>%
+  filter(Year== 2000)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_2 <- ggplot(pie_data_2)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "white", size= 6)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2000")
+
+plot_2
+
+
+#PLot für das Jahr 2010
+
+
+pie_data_3 <- global_plastic_fate %>%
+  filter(Year== 2010)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_3 <- ggplot(pie_data_3)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "white", size= 6)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2010")
+
+plot_3
+
+
+#Plot für das Jahr 2015
+
+pie_data_4 <- global_plastic_fate %>%
+  filter(Year== 2015)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_4 <- ggplot(pie_data_4)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "white", size= 6)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2015")
+
+plot_4
+
+
+```
+
+```{r}
+#Ersatz Versuch 
+
+#Recycling #66CC66 ->Recycled
+#Engery_recovery #33CCCC ->Incinerated
+#Disposal_total #6699FF -> Discardes
+
+
+
+mycols <- c("#66CC66", "#33CCCC", "#6699FF")
+
+
+global_plastic_fate%>%
+  filter(Year== 1980)%>%
+  ggplot(aes(x="", y=plastic, fill=Entity))+
+  geom_bar(width = 1, stat = "identity", color="white")+
+  coord_polar("y", start = 0)+
+  scale_fill_manual(values = mycols) +
+  geom_text(aes( 
+    x = 0.7 * sin(mid_angle),
+    y = 0.7 * cos(mid_angle),
+    label = plastic), color = "white", size=5)+
+  theme_void()
+
+
+global_plastic_fate%>%
+  filter(Year== 2010)%>%
+  ggplot(aes(x="", y=plastic, fill=Entity))+
+  geom_bar(width = 1, stat = "identity", color="white")+
+  coord_polar("y", start = 0)+
+  scale_fill_manual(values = mycols) +
+  geom_text(aes(label = plastic), color = "white", size=5)+
+  theme_void()
+
+global_plastic_fate%>%
+  filter(Year== 2015)%>%
+  ggplot(aes(x="", y=plastic, fill=Entity))+
+  geom_bar(width = 1, stat = "identity", color="white")+
+  coord_polar("y", start = 0)+
+  scale_fill_manual(values = mycols) +
+  geom_text(aes(label = plastic), color = "white", size= 5)+
+  theme_void()
+  
+  
 ```
 
