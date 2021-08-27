@@ -46,7 +46,14 @@ library(usethis)
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(dplyr)
 
+
+
+#library(tidyr)
+#library(plyr)
+#library(scales)
+#library(ggforce)
 
 ```
 
@@ -229,7 +236,65 @@ Was könnte dieser Trend für die **kommenden 15 Jahre** bedeuten?
 # Sind alle Länder gleichermaßen für diesen Anstieg verantwortlich?
 
 ```{r}
-#Karte Europa (2018)
+#Weltkarte > Code einfügen!!
+#Daten einlesen 
+
+world_plastic <- readr::read_csv("data/plastic-waste-generation-total.csv")
+
+#Daten bearbeiten
+world_plastic%>%
+mutate(plastic_waste_tt = `Plastic waste generation (tonnes, total)`/ 1000)-> world_plastic
+
+
+#Länder der Welt einlesen
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+#Länder mit dem Datensatz zusammenfügen
+world %>% 
+ left_join(world_plastic, by = c("gu_a3" = "Code"), all.x=TRUE) -> world_plastic_1
+
+
+world_plastic_1<-world_plastic_1%>%
+  mutate_at(vars(plastic_waste_tt), as.numeric)
+
+c<-c(0, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000)
+names_1<- c("1-2000", "2000-5000", "5000-10000", "10000-20000", "20000-30000", "30000-40000",  "40000-50000", "50000-60000")
+
+
+cut(world_plastic_1$plastic_waste_tt, breaks =c, labels = names_1) -> world_plastic_1$plastic_waste_tt
+
+
+world_plastic_1%>%
+  ggplot()+
+  aes(fill = plastic_waste_tt)+
+  geom_sf_interactive(aes(tooltip = name), color= "black")+
+  labs(fill="Plastikmüllproduktion in tausend Tonnen") +
+  labs(title = "Deutschland produzierte 2010 ganze 14.476.561 Tonnen Plastikmüll", subtitle = "Totale Plastikmüllproduktion pro Land im Jahr 2010")+
+  theme(plot.title = element_text(size = 20, face = "bold"))+
+  theme_void() +
+  theme(legend.position = "bottom", legend.direction = "horizontal") +
+  theme(legend.title = element_text(size = 12), legend.text = element_text(size = 10))+
+  scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map_1
+
+
+ggiraph::girafe(
+  ggobj = plastic_map_1, 
+  pointsize = 14,
+  width_svg = 10,
+  height_svg = 10* 0.618,
+  options = list(
+    opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
+    opts_hover(css = "fill: #00868B;"),
+    opts_hover_inv(css = "opacity: 0.3;")
+  )
+)
+
+```
+
+
+```{r}
+#Karte Europa (2018) 
+#falls der Tooltip der name des Landes sein soll: tooltip= name!!
 
 #Datenstze einlesen 
 waste_per_country <- readr::read_csv("data/waste_2018.csv")
@@ -247,40 +312,40 @@ world %>%
 world_plastic<-world_plastic%>%
   mutate_at(vars(Plastic_waste_annual_capita), as.numeric)
 
-b<-c(10,20,30,40,50,60,70,80)
-names<- c("<9", "10-19","20-29","30-39","40-49","50-59",">60")
+b<-c(0,10,20,30,40,50,60,70,80)
+names<- c("<9", "10-19","20-29","30-39","40-49","50-59","60-69",">70")
 
 
-cut(world_plastic$Plastic_waste_annual_capita, breaks =b, labels = names) -> world_plastic$Plastic_waste_annual_capita
+cut(world_plastic$Plastic_waste_annual_capita, breaks =b, labels = names) -> world_plastic$Plastic_waste_annual_capita_1
 
 
 #Grafik erstellen
 world_plastic %>%
   ggplot() +
-  aes(fill = Plastic_waste_annual_capita) +
+  aes(fill = Plastic_waste_annual_capita_1) +
   geom_sf_interactive(color = "black",
                       aes(tooltip = name)) +
   coord_sf(xlim = c(-23, 45), ylim = c(35, 70)) +
   labs(title = "So viel Plastikmüll fällt in der EU an",
        subtitle = "Plastikmüll pro Kopf in EU-ländern, 2018",
-       fill = "kg/Einwohner*in") +
-  theme(plot.title = element_text(size = 14, face = "bold")) +
+       fill = "Kg/Einwohner*in")+
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  theme(legend.title = element_text(size = 12), legend.text = element_text(size = 10))+
   theme_void() +
-  theme(legend.position = "bottom", legend.direction = "horizontal") +
+  theme(legend.position = "right") +
   scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map
-
- 
 
 ggiraph::girafe(
   ggobj = plastic_map,
-  width_svg = 9,
-  height_svg = 9 * 0.618,
+  width_svg = 10,
+  height_svg = 10 * 0.618,
   options = list(
     opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.3;")
   )
 )
+
 ```
 
 Wirf hier einen Blick zu unseren europäischen Nachbarn.
@@ -314,18 +379,195 @@ girafe(
 # Was passiert mit dem ganzen Plastikmüll?
 
 ```{r}
-global_plastic_fate %>%
-group_by(Entity) %>%
-ggplot(aes(x = Year, y = `Estimated historic plastic fate`, color= Entity)) +
- geom_point()+
- scale_x_continuous(limits = c(1980, 2015), breaks = c(1980, 1990, 2000, 2010, 2015), expand = c(0.02,0.02))+
-  scale_y_continuous(expand = c(0.02,0)) +
-  labs(x= "", y= "prozentualer Anteil", title= "Globaler Kunststoffabfall differnziert nach Entsorgungsart, 1980 bis 2015")+
-  scale_colour_discrete(name= "Entsorgungsart", breaks=c("Discarded", "Incinerated", "Recycled"),labels= c("Entsorgung (auf Mülldeponien)", "Verbrennung", "Recyceln"))+
-  theme_minimal_hgrid(12)
+#Entwicklung Welt(1980-2015)
+#Entwurf für Website 
+
+global_plastic_fate <- readr::read_csv("data/global-plastic-fate.csv")
+
+
+global_plastic_fate%>%
+  rename(plastic = `Estimated historic plastic fate`)%>%
+  mutate(plastic = plastic/100)-> global_plastic_fate
+
+
+#Plot für das JAhr 1980
+
+pie_data_1 <- global_plastic_fate %>%
+  filter(Year== 1980)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_1 <- ggplot(pie_data_1)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text_interactive(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "none",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28),
+        legend.text = element_text(size = 12))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "1980")-> plot_1
+
+plot_1
+
+#Plot für das Jahr 2000
+
+pie_data_2 <- global_plastic_fate %>%
+  filter(Year== 2000)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_2 <- ggplot(pie_data_2)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "right",
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2000")
+
+plot_2
+
+
+#PLot für das Jahr 2010
+
+
+pie_data_3 <- global_plastic_fate %>%
+  filter(Year== 2010)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_3 <- ggplot(pie_data_3)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "none",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28),
+        legend.text = element_text(size = 12))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2010")
+
+plot_3
+
+
+#Plot für das Jahr 2015
+
+pie_data_4 <- global_plastic_fate %>%
+  filter(Year== 2015)%>%
+  mutate(
+    end_angle = 2*pi*cumsum(plastic)/sum(plastic),   # ending angle for each pie slice
+    start_angle = lag(end_angle, default = 0),   # starting angle for each pie slice
+    mid_angle = 0.5*(start_angle + end_angle),   # middle of each pie slice, for text labels
+    # horizontal and vertical justifications for outer labels
+    hjust = ifelse(mid_angle > pi, 1, 0),
+    vjust = ifelse(mid_angle < pi/2 | mid_angle > 3*pi/2, 0, 1)
+  )
+
+
+plot_4 <- ggplot(pie_data_4)+
+  aes(x0 = 0, y0 = 0, r0 = 0.4, r = 1,
+    start = start_angle,end = end_angle,fill = Entity)+
+  geom_arc_bar(alpha= 0.8) +
+  geom_text(aes( #place amount inside the pie
+      x = 0.7 * sin(mid_angle),
+      y = 0.7 * cos(mid_angle),
+      label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  theme_void()+
+  theme(legend.position = "none",
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5, size = 28))+
+  theme(legend.background = element_rect(fill="#FAFAFA", 
+        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
+  coord_fixed(xlim = c(-1.2, 1.2))+
+  labs(title= "2015")
+
+plot_4
+
+plot_1+plot_2+plot_3+plot_4+
+  plot_annotation(title="Globale Entwicklung der Abfallwirtschaft")
+
+
+
 ```
 
 Unter Weggeworfen wird hier der Müll verstanden, der weder recycelt noch verbrannt wird, sondern auf Mülldeponien oder auf der Straße landet. Auch von der Mülldeponie aus kann unser Müll über Wind und Wetter in die Umwelt gelangen. 
+
+```{r}
+waste_mgmt <- readr::read_csv("data/waste_management.csv")
+
+
+ggplot()+
+  geom_line(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, tooltip=Recycling, color= "Recyceln"), fill="#66CC66", size=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, data_id=Recycling, tooltip=Recycling), colour="#66CC66", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, color="Verbrennung"), size= 1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, color= "Entsorgung (auf Mülldeponien)"), lwd=1, alpha=0.6)+
+  geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
+  scale_color_manual(name = "Entsorgungsart", values = c("Recyceln" = "#66CC66", "Verbrennung" = "#33CCCC", "Entsorgung (auf Mülldeponien)" = "#6699FF"))+
+labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \nNeben der Produktion ist auch die Entsorgung von \nbereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
+  scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
+  theme_minimal_hgrid()->waste_plot
+
+girafe(
+  ggobj = waste_plot,
+  width_svg = 7,
+  height_svg = 7*0.618,
+    options = list(
+    opts_tooltip(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover(css = "background: #F5F5F5; color: #000000;"),
+    opts_hover_inv(css = "opacity: 0.2;")))
+```
+
 
 > Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
 

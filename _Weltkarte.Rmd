@@ -54,7 +54,7 @@ world_plastic %>%
   ggplot() +
   aes(fill = Plastic_waste_annual_capita_1) +
   geom_sf_interactive(color = "black",
-                      aes(tooltip = Plastic_waste_annual_capita)) +
+                      aes(tooltip = name)) +
   coord_sf(xlim = c(-23, 45), ylim = c(35, 70)) +
   labs(title = "So viel Plastikmüll fällt in der EU an",
        subtitle = "Plastikmüll pro Kopf in EU-ländern, 2018",
@@ -125,8 +125,8 @@ world_plastic_1%>%
 ggiraph::girafe(
   ggobj = plastic_map_1, 
   pointsize = 14,
-  width_svg = 9,
-  height_svg = 9* 0.618,
+  width_svg = 10,
+  height_svg = 10* 0.618,
   options = list(
     opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
     opts_hover(css = "fill: #00868B;"),
