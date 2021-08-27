@@ -1,10 +1,10 @@
 ---
-title: "Infos ueber das Projekt"
+title: "Infos über das Projekt"
 description: |
   Hier gibt es Hintergrundinformationen zur Entstehung dieser Website.
 ---
 
-Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen moechte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensaetze zu kombinieren und so aufzubereiten, dass ein Mehrwert fuer den Rezipienten entsteht.
+Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen moechte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensätze zu kombinieren und so aufzubereiten, dass ein Mehrwert fuer den Rezipienten entsteht.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
