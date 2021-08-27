@@ -9,27 +9,110 @@ Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" de
 knitr::opts_chunk$set(echo = FALSE)
 ```
 ---
-## Datenquellen
+## Datenquellen (Chronologische Reihenfolge entsprechend der Webseite)
 
 ##### Quelle der Abbildung "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten"
 
 K. Senathirajah, T. Palanisami (2009):
 How much microplastics are we ingesting? Estimation of the mass of microplastics ingested.Report for WWF. Singapore. 
 
-##### Quelle der Abbildungen "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015", "Kumulation der globalen Plastikproduktion von 1950 bis 2015" und "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung 2010","Weltkarte", "Globale Entwicklung der Abfallwirtschaft":
+##### Quelle der Abbildungen "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015":
 
-H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution' 
+Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
 
-##### Quelle der Abbildungen "Aufkommen von Plastikabfall in Deutschland"
+License 4.0 (CC BY-NC)
+* Die verwendeten Daten wurden für die Visualisierung umbenannt und umgerechnet (/1000000)
 
-Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 Taetigkeit 	ENV_WASGEN. Letzte Datenaktualisierung:	29/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/ENV_WASGEN/default/table?lang=de'  
+Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
 
+##### Quelle der Abbildung "Kumulation der globalen Plastikproduktion von 1950 bis 2015":
+
+Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
+
+License 4.0 (CC BY-NC)
+* Die verwendeten Daten wurden für die Visualisierung umbenannt, umgerechnet (/1000000000) und auf zwei Nachkommastellen gerundet. 
+
+Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
+
+##### Quelle der Abbildung "Totale Plastikmüllproduktion pro Land im Jahr 2010":
+
+Jambeck, J. R., Geyer, R., Wilcox, C., Siegler, T. R., Perryman, M., Andrady, A., ... & Law, K. L. (2015). Plastic waste inputs from land into the ocean. Science, 347(6223), 768-771. http://science.sciencemag.org/content/347/6223/768/.
+
+Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution':
+
+Anmerkungen zu den Daten aus der Abrufquelle:
+* "Data on total national plastic waste generation was calculated by Our World in Data based on per capita plastic waste generation data published in Jambeck et al. (2015), and total population data published in the World Bank, World Development Indicators (available at: https://datacatalog.worldbank.org/dataset/world-development-indicators)."
+
+*"Jambeck et al. quantified municipal and plastic waste streams from coastal populations in 2010. Their estimates were therefore multiplied by coastal population numbers to derive national plastic waste at risk of entering oceans and waterways. Here we calculate the total plastic waste generation by instead multiplying by total population figures."
 
 #### Quelle der Abbildung "So viel Plastikmüll fällt in der EU an"
 Eurostat: Generation of waste by waste category, hazardousness and NACE Rev. 2 activity. Letzte Datenaktualisierung: 11/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/env_wasgen/default/table?lang=en'
 
+* Die verwendeten Daten wurden für die Visualisierung umbenannt und die intervallskalierte Variable `Plastic_waste_annual_capita` umgerechnet von einer intervallskalierten Variable in eine ordinalskalierte Variable
+
+##### Quelle der Abbildungen "Aufkommen von Plastikabfall in Deutschland"
+
+Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 Taetigkeit 	ENV_WASGEN. Letzte Datenaktualisierung:	29/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/ENV_WASGEN/default/table?lang=de'
+
+* Die verwendeten Daten wurden für die Visualisierung umbenannt, die Datenpunkte für Deutschland herausgefiltert, die Variable `PMillTonnen` umgerechnet (/1000000) und auf zwei Nachkommastellen gerundet. 
+
+##### Quelle der Abbildung "Globale Entwicklung der Abfallwirtschaft":
+
+Geyer, R., Jambeck, J. R., & Law, K. L. (2017). Production, use, and fate of all plastics ever made. Science Advances, 3(7), e1700782. http://advances.sciencemag.org/content/3/7/e1700782.full.
+
+License 4.0 (CC BY-NC)
+* Abruf der Daten über: H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
+Anmerkungen zu den Daten aus der Abrufquelle:
+*"Estimates of the proportion of plastic waste discarded, recycled and incinerated based on data in Geyer et al. (2017)."
+  
+* Geyer et al. (2017) note an average linear rate of increase in recycling of 0.7% per year from 1990 onwards, and 0.7% per year for incineration from 1980 onwards. 
+
+* Data for 1980-2015 is based on historical estimates. Data from 2016-2050 is based solely on extrapolation of consistent growth trends of 0.7% for recycling and incineration; it therefore represents business-as-usual growth but should not be interpreted as a direct projection.
+* Eigene Anpassungen der Daten: Die verwendeten Daten wurden für die Visualisierung umbenannt und die Jahre 1980, 2000, 2010 und 2015 herausgefiltert.
+
 #### Quelle der Abbildung "Management des Plastikabfalls in Deutschland von 2010 bis 2018" 
 Eurostat: Treatment of waste by waste category, hazardousness and waste management operations. Letzte Datenaktualisierung: 11/06/2021.
 'https://ec.europa.eu/eurostat/databrowser/view/env_wastrt/default/table?lang=en'
+
+
+##### Quelle der Abbildung "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung 2010":
+
+Für die Visualisierung wurden mehrere Datensätze der über die folgende Quelle abergufen und kombiniert: 
+ H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution'
+ 
+ 1. Plastikmüllproduktion pro Kopf und inadäquat entsorgter Plastikmüll pro Kopf
+Jambeck, J. R., Geyer, R., Wilcox, C., Siegler, T. R., Perryman, M., Andrady, A., ... & Law, K. L. (2015). Plastic waste inputs from land into the ocean. Science, 347(6223), 768-771. http://science.sciencemag.org/content/347/6223/768/
+
+Anmerkungen zu den Daten aus der Abrufquelle:
+* "Jambeck et al. quantified municipal and plastic waste streams from coastal populations in 2010 with projections to the year 2025."
+
+* "The authors' definition of a coastal population is based on those who live within 50km of a coastal water. Such populations are those for which plastic waste is at risk of leading to ocean debris. Sources further inland are significantly less likely to end up as ocean debris."
+
+* "The authors define mismanaged and inadequately managed waste as follows: "mismanaged waste is material that is either littered or inadequately disposed. Inadequately disposed waste is not formally managed and includes disposal in dumps or open, uncontrolled landfills, where it is not fully contained. Mismanaged waste could eventually enter the ocean via inland waterways,
+wastewater outflows, and transport by wind or tides."
+
+* "In October 2019, per capita plastic waste figures for Trinidad and Tobago were updated from 3.6kg to 0.29kg per person per day. This change was the result of error in the original waste figures published by the World Bank, which have since been revised and amended."
+
+2. Bruttoinlandsprodukt pro Kopf (CONSTANT 2011 INTERNATIONAL $)
+
+Datenveröffentlichung:	World Bank – World Development Indicators
+Quelle:	World Bank, International Comparison Program database.
+http://data.worldbank.org/data-catalog/world-development-indicators
+
+* Die verwendeten Daten wurden für die Visualisierung umbenannt, nur vollständige Datensätze selektiert und wie folgend umgerechnet:
+  Variable `Per capita mismanaged plastic waste`:*1000
+  Variable `Per capita plastic waste (kg/person/day)` *1000
+
+
+
+
+
+ 
+
+
+
+
+
+
 
 

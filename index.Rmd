@@ -305,7 +305,6 @@ Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder v
 <br/>
 ```{r}
 #Karte Europa (2018) 
-#falls der Tooltip der name des Landes sein soll: tooltip= name!!
 
 #Datenstze einlesen 
 waste_per_country <- readr::read_csv("data/waste_2018.csv")
@@ -408,7 +407,7 @@ global_plastic_fate%>%
   mutate(plastic = plastic/100)-> global_plastic_fate
 
 
-#Plot für das JAhr 1980
+#Plot für das Jahr 1980
 
 pie_data_1 <- global_plastic_fate %>%
   filter(Year== 1980)%>%
