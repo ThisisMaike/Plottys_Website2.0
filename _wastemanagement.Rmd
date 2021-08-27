@@ -153,15 +153,11 @@ plot_2 <- ggplot(pie_data_2)+
       x = 0.7 * sin(mid_angle),
       y = 0.7 * cos(mid_angle),
       label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
-  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"))+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"), name = "Entsorgungsart")+
   theme_void()+
   theme(legend.position = "right",
     legend.box.just = "right",
-    legend.margin = margin(6, 6, 6, 6),
-        legend.title = element_blank(),
         plot.title = element_text(hjust = 0.5, size = 28))+
-  theme(legend.background = element_rect(fill="#FAFAFA", 
-        size=0.5, linetype="solid"), legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
   coord_fixed(xlim = c(-1.2, 1.2))+
   labs(title= "2000")
 

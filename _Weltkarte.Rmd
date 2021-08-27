@@ -63,7 +63,7 @@ world_plastic %>%
   theme(legend.title = element_text(size = 12), legend.text = element_text(size = 10))+
   theme_void() +
   theme(legend.position = "right") +
-  scale_fill_discrete_sequential(palette = "Emrld", na.value = "grey 97", na.translate=FALSE)->plastic_map
+  scale_fill_discrete_sequential(palette = "GnBu", na.value = "grey 97", na.translate=FALSE)->plastic_map
 
 ggiraph::girafe(
   ggobj = plastic_map,
