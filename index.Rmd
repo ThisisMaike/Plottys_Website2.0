@@ -20,7 +20,9 @@ In den Vergangenheit sind immer wieder Bilder und Videos aufgetaucht, die die   
 Und dennoch ist Plastik immer noch ein fester Bestandteil unseres Alltags, z. B.     wenn wir Lebensmittel kaufen, Sportklamotten anziehen oder uns die Zähne putzen.     Das geht sogar so weit, dass Plastik in unserem Körper landet – und zwar so viel,    dass man sagen könnte:
 
 **_Jeder Mensch isst pro Woche eine Kreditkarte._** 
-
+<br/>
+<br/>
+<br/>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 #Pakete laden
@@ -170,13 +172,16 @@ girafe(
 ```
 Die Angaben beziehen sich auf eine Studie im Auftrag des WWF. Das meiste Mikroplastik nimmst Du über Trinkwasser auf, aber auch über die Luft beim Atmen und die Nahrungsaufnahme gelangt Mikroplastik in den Körper.  
 
+<br/>
+
 > Plastik begegnet uns überall in unserem Alltag und betrifft uns alle.
 
+<br/>
 
-# Wie hat sich die globale Plastikproduktion innerhalb der letzten Jahre entwickelt?
+# Wie hat sich die globale Plastik-  produktion innerhalb der letzten Jahre entwickelt?
 
 Mit dieser Website kannst du dem Plastik-Problem auf den Grund gehen, anhand von Zahlen und Daten die Ursachen ergründen und versuchen zu verstehen, was denn nun das eigentliche Problem mit dem Plastik ist. Dazu wird hier zunächst ein Blick auf die globale Entwicklung der Plastikproduktion geworfen: 
-
+<br/>
  
 ```{r}
 global_plastic %>%
@@ -230,8 +235,11 @@ girafe(
 
 Was könnte dieser Trend für die **kommenden 15 Jahre** bedeuten?
 
+<br/>
+
 > Der Plastikbedarf ist ein zunehmendes, globales Phänomen.
 
+<br/>
 
 # Sind alle Länder gleichermaßen für diesen Anstieg verantwortlich?
 
@@ -283,7 +291,7 @@ ggiraph::girafe(
   width_svg = 10,
   height_svg = 10* 0.618,
   options = list(
-    opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
+  opts_tooltip(opacity = .8, css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;"),
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.3;")
   )
@@ -291,7 +299,10 @@ ggiraph::girafe(
 
 ```
 
+Wirf hier einen Blick zu unseren europäischen Nachbarn.
+Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder von uns im Jahr 2018 35 Kilogramm Plastik verbraucht. Später wirst du an einer Grafik mit Daten aus 2010 sehen, das Deutschland noch vor einigen Jahren ein innereuropäisches Negativbeispiel war. 
 
+<br/>
 ```{r}
 #Karte Europa (2018) 
 #falls der Tooltip der name des Landes sein soll: tooltip= name!!
@@ -327,7 +338,7 @@ world_plastic %>%
                       aes(tooltip = name)) +
   coord_sf(xlim = c(-23, 45), ylim = c(35, 70)) +
   labs(title = "So viel Plastikmüll fällt in der EU an",
-       subtitle = "Plastikmüll pro Kopf in EU-ländern, 2018",
+       subtitle = "Plastikmüll pro Kopf in EU-ländern im Jahr 2018",
        fill = "Kg/Einwohner*in")+
   theme(plot.title = element_text(size = 25)) +
   theme(legend.title = element_text(size = 12), legend.text = element_text(size = 10))+
@@ -340,19 +351,20 @@ ggiraph::girafe(
   width_svg = 10,
   height_svg = 10 * 0.618,
   options = list(
-    opts_tooltip(opacity = .9, css = "background-color:gray;color:white;padding:2px;border-radius:2px;"),
+    opts_tooltip(opacity = .8, css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;"),
     opts_hover(css = "fill: #00868B;"),
     opts_hover_inv(css = "opacity: 0.3;")
   )
 )
 
 ```
+<aside>
+*Für folgende Länder die Daten wurden Daten aus 2016 anstatt 2018 verwendet: Griechenland, Portugal, Montenegro, Tschechien
+</aside>
+<br/>
+<br/>
 
-Wirf hier einen Blick zu unseren europäischen Nachbarn.
-Deutschland liegt beim Thema Plastikabfall im Mittelfeld. Im Schnitt hat jeder von uns im Jahr 2018 35 Kilogramm Plastik verbraucht. Später wirst du an einer Grafik mit Daten aus 2010 sehen, das Deutschland noch vor einigen Jahren ein innereuropäisches Negativbeispiel war. 
-
-
-# Wie viel Plastikmüll erzeugt Deutschland?
+# Wie viel Plastikmüll erzeugt Deutsch-  land?
 
 ```{r}
 #Lollipop-Plot
@@ -373,8 +385,11 @@ girafe(
     opts_tooltip(css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;")))
 ```
 
+<br/>
+
 > Wenn auch gering, steigt die Menge an Plastikabfall jedes Jahr weiter an.
 
+<br/>
 
 # Was passiert mit dem ganzen Plastikmüll?
 
@@ -542,6 +557,8 @@ plot_1+plot_2+plot_3+plot_4+
 
 Unter Entsorgung wird hier der Müll verstanden, der weder recycelt noch verbrannt wird, sondern auf Mülldeponien oder auf der Straße landet. Auch von der Mülldeponie aus kann unser Müll über Wind und Wetter in die Umwelt gelangen. 
 
+<br/>
+
 ```{r}
 waste_mgmt <- readr::read_csv("data/waste_management.csv")
 
@@ -551,7 +568,7 @@ ggplot()+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x = Year, y= Recycling, data_id=Recycling, tooltip=Recycling), colour="#66CC66", size=4)+
   geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, color="Verbrennung"), size= 1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
-  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, color= "Entsorgung (auf Mülldeponien)"), lwd=1, alpha=0.6)+
+  geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, color= "Entsorgung"), lwd=1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
   scale_color_manual(name = "Entsorgungsart", values = c("Recyceln" = "#66CC66", "Verbrennung" = "#33CCCC", "Entsorgung" = "#6699FF"))+
 labs(x= "Jahr", y= "Tonnen", title= "Im Vergleich zum Rest der Welt hat Deutschland heute\n eine hohe Recyclingquote", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
@@ -563,14 +580,15 @@ girafe(
   width_svg = 7,
   height_svg = 7*0.618,
     options = list(
-    opts_tooltip(css = "background: #F5F5F5; color: #000000;"),
+    opts_tooltip(opacity = .7, css = "background: #00868B; color: #FFFF; padding:2px;border-radius:2px;"),
     opts_hover(css = "background: #F5F5F5; color: #000000;"),
     opts_hover_inv(css = "opacity: 0.2;")))
 ```
-
+<br/>
 
 > Neben der Produktion ist auch die Entsorgung von bereits bestehendem Plastik ein Problem.
 
+<br/>
 
 # Wie hängen Produktion und Entsorgung mit dem Wohlstand eines Landes zusammen?
 
@@ -601,13 +619,16 @@ Inadäquat entsorgter Plastikmüll ist der Müll, der direkt auf der Straße bzw
 
 Abweichend zur Europakarte von 2018 war Deutschland 2010 innerhalb von Europa mit Abstand das Land mit dem größten Plastikabfallaufkommen pro Kopf. Auch wenn nur ein kleiner Anteil dieser Abfälle inadequat entsorgt wird, fällt die Bundesrepublik hier als Negativbeispiel auf. 
 
+<br/>
+
 > Wohlstand ist ein Privileg und bietet Chancen, um sich mit Plastik und dessen Verwertung auseinandersetzen.
 
+<br/>
 
 **Plastik ist ein komplexes Problem, welches sowohl die immer noch steigende Produktion als auch Fehler bei der Entsorgung und das Recyclingsystem an sich umfasst. Aber: Wissen ist der erste Schritt zur Problemlösung und wir hoffen, dass wir dir hier einen besseren Üerblick über Plastik geben konnten.**
 
 
 Wenn Du möchtest, erfährst du hier noch mehr zum Thema Plastik:
 [Klick mich, um zu erfahren, wie die EU bis 2050 eine Kreislaufwirtschaft erreichen möchte!](https://www.europarl.europa.eu/news/de/headlines/priorities/kreislaufwirtschaft/20210128STO96607/wie-will-die-eu-bis-2050-eine-kreislaufwirtschaft-erreichen)
-
+<br/>
 [Klick mich, um mehr zum Thema Mikroplastik zu erfahren!](https://www.europarl.europa.eu/news/de/headlines/society/20181116STO19217/mikroplastik-ursachen-auswirkungen-und-losungen)
