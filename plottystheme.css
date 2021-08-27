@@ -13,7 +13,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri');
 @import url('https://fonts.googleapis.com/css2?family=Bitter');
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Raleway:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 
 
 html {
@@ -39,7 +40,7 @@ html {
 /*-- ARTICLE METADATA --*/
 d-byline {
   --heading-size:    0.6rem;
-  --heading-color:   rgba(0, 0, 0, 0.9);
+  --heading-color:   rgba(0, 0, 0, 1);
   --body-size:       0.8rem;
   --body-color:      #000000;
 }
@@ -63,8 +64,8 @@ d-appendix {
 
 .distill-site-header {
   --title-size:       18px;
-  --text-color:       #000000;
-  --text-size:        15px;
+  --text-color:       #FFFFFF;
+  --text-size:        17px;
   --hover-color:      white;
   --bkgd-color:       #00868B;
 }
@@ -81,6 +82,7 @@ d-appendix {
 
 body {
   background-color: #ffffff;
+  text-align: justify;
 
 
   ::-webkit-scrollbar {
@@ -100,4 +102,11 @@ body {
   background: rgba(27, 164, 176, 1);
   -webkit-box-shadow: inset 0 0 6px rgba(27, 164, 176, 1);
 }
+}
+
+h1, h2, h3, h4, h5, h6, aside, quotes {
+  text-align: left;
+
+
+
 
