@@ -450,7 +450,7 @@ plot_2 <- ggplot(pie_data_2)+
       x = 0.7 * sin(mid_angle),
       y = 0.7 * cos(mid_angle),
       label = percent(plastic), fill=Entity), colour= "black", size= 3.5)+
-  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung (auf Mülldeponien)","Verbrennung","Recyceln"), name = "Entsorgungsart")+
+  scale_fill_manual(values= c(Discarded= "#6699FF", Incinerated= "#33CCCC", Recycled= "#66CC66"), labels=c("Entsorgung","Verbrennung","Recyceln"), name = "Entsorgungsart")+
   theme_void()+
   theme(legend.position = "right",
     legend.box.just = "right",
@@ -540,7 +540,7 @@ plot_1+plot_2+plot_3+plot_4+
 
 ```
 
-Unter Weggeworfen wird hier der Müll verstanden, der weder recycelt noch verbrannt wird, sondern auf Mülldeponien oder auf der Straße landet. Auch von der Mülldeponie aus kann unser Müll über Wind und Wetter in die Umwelt gelangen. 
+Unter Entsorgung wird hier der Müll verstanden, der weder recycelt noch verbrannt wird, sondern auf Mülldeponien oder auf der Straße landet. Auch von der Mülldeponie aus kann unser Müll über Wind und Wetter in die Umwelt gelangen. 
 
 ```{r}
 waste_mgmt <- readr::read_csv("data/waste_management.csv")
@@ -553,8 +553,8 @@ ggplot()+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Engery_recovery, data_id=Engery_recovery, tooltip=Engery_recovery), color= "#33CCCC", size=4)+
   geom_line(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, color= "Entsorgung (auf Mülldeponien)"), lwd=1, alpha=0.6)+
   geom_point_interactive(data= waste_mgmt, mapping = aes(x= Year, y= Disposal_total, data_id=Disposal_total, tooltip=Disposal_total), color= "#6699FF", size=4)+
-  scale_color_manual(name = "Entsorgungsart", values = c("Recyceln" = "#66CC66", "Verbrennung" = "#33CCCC", "Entsorgung (auf Mülldeponien)" = "#6699FF"))+
-labs(x= "Jahr", y= "Tonnen", title= "Wohin mit dem ganzen Plastikabfall? \nNeben der Produktion ist auch die Entsorgung von \nbereits bestehendem Plastik ein Problem", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
+  scale_color_manual(name = "Entsorgungsart", values = c("Recyceln" = "#66CC66", "Verbrennung" = "#33CCCC", "Entsorgung" = "#6699FF"))+
+labs(x= "Jahr", y= "Tonnen", title= "Im Vergleich zum Rest der Welt hat Deutschland heute\n eine hohe Recyclingquote", subtitle = "Management des Plastikabfalls in Deutschland von 2010 bis 2018")+
   scale_x_continuous(limits=c(2010,2018), breaks = c(2010,2012,2014,2016,2018))+
   theme_minimal_hgrid()->waste_plot
 

@@ -11,25 +11,25 @@ knitr::opts_chunk$set(echo = FALSE)
 ---
 ## Datenquellen
 
-##### Quelle der Abbildung: "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten":
+##### Quelle der Abbildung "Die durchschnittliche Aufnahme von Mikroplastik\n pro Person innerhalb eines Jahres mit Referenzobjekten"
 
 K. Senathirajah, T. Palanisami (2009):
 How much microplastics are we ingesting? Estimation of the mass of microplastics ingested.Report for WWF. Singapore. 
 
-##### Quelle der Abbildungen: "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015", "Kumulation der globalen Plastikproduktion von 1950 bis 2015" und "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung 2010","Weltkarte", "Globale Entwicklung der Abfallwirtschaft":
+##### Quelle der Abbildungen "Globale Entwicklung der Plastikproduktion in Millionen Tonnen von 1950 bis 2015", "Kumulation der globalen Plastikproduktion von 1950 bis 2015" und "Zusammenhang von Wohlstand, Plastikmüllproduktion und inadäquater Entsorgung 2010","Weltkarte", "Globale Entwicklung der Abfallwirtschaft":
 
-H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org. ['https://ourworldindata.org/plastic-pollution'] 
+H. Ritchie, M. Roser (2018): Plastic Pollution. Veroeffentlicht online bei OurWorldInData.org.  'https://ourworldindata.org/plastic-pollution' 
 
-##### Quelle der Abbildungen: "Aufkommen von Plastikabfall in Deutschland"
+##### Quelle der Abbildungen "Aufkommen von Plastikabfall in Deutschland"
 
-Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 Taetigkeit 	ENV_WASGEN. Letzte Datenaktualisierung:	29/06/2021  11:00.https://ec.europa.eu/eurostat/databrowser/view/ENV_WASGEN/default/table?lang=de 
+Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 Taetigkeit 	ENV_WASGEN. Letzte Datenaktualisierung:	29/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/ENV_WASGEN/default/table?lang=de'  
 
 
-#### Quelle der Abbildung: "So viel Plastikmüll fällt in der EU an":
-Eurostat: Generation of waste by waste category, hazardousness and NACE Rev. 2 activity. Letzte Datenaktualisierung: 11/06/2021 https://ec.europa.eu/eurostat/databrowser/view/env_wasgen/default/table?lang=en
+#### Quelle der Abbildung "So viel Plastikmüll fällt in der EU an"
+Eurostat: Generation of waste by waste category, hazardousness and NACE Rev. 2 activity. Letzte Datenaktualisierung: 11/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/env_wasgen/default/table?lang=en'
 
-#### Quelle der Abbildung: "Management des Plastikabfalls in Deutschland von 2010 bis 2018": 
-Eurostat: Treatment of waste by waste category, hazardousness and waste management operations. Letzte Datenaktualisierung: 11/06/2021
-https://ec.europa.eu/eurostat/databrowser/view/env_wastrt/default/table?lang=en
+#### Quelle der Abbildung "Management des Plastikabfalls in Deutschland von 2010 bis 2018" 
+Eurostat: Treatment of waste by waste category, hazardousness and waste management operations. Letzte Datenaktualisierung: 11/06/2021.
+'https://ec.europa.eu/eurostat/databrowser/view/env_wastrt/default/table?lang=en'
 
 
