@@ -4,7 +4,7 @@ description: |
   Hier gibt es Hintergrundinformationen zur Entstehung dieser Website.
 ---
 
-Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen moechte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensätze zu kombinieren und so aufzubereiten, dass ein Mehrwert fuer den Rezipienten entsteht.
+Die Website ist im Zuge des Seminars "Informationsvisualisierung und Sprache" der RWTH Aachen mithilfe von R Studio entstanden. Sie eignet sich für jeden, der sich über die Thematik von Plastik informieren und tiefer in die Problematik einsteigen moechte. Die Visualisierungen zeigen sowohl globale Daten als auch spezifisch auf Deutschland fokussierte Daten. Ziel war es, unterschiedliche Datensätze zu kombinieren und so aufzubereiten, dass ein Mehrwert für den Rezipienten entsteht.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -52,13 +52,13 @@ Anmerkungen zu den Daten aus der Abrufquelle:
 #### Quelle der Abbildung "So viel Plastikmüll fällt in der EU an"
 Eurostat: Generation of waste by waste category, hazardousness and NACE Rev. 2 activity. Letzte Datenaktualisierung: 11/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/env_wasgen/default/table?lang=en'
 
-* Die verwendeten Daten wurden für die Visualisierung umbenannt und die intervallskalierte Variable `Plastic_waste_annual_capita` umgerechnet von einer intervallskalierten Variable in eine ordinalskalierte Variable
+* Die verwendeten Daten wurden für die Visualisierung umbenannt und die intervallskalierte Variable "Plastic_waste_annual_capita" umgerechnet von einer intervallskalierten Variable in eine ordinalskalierte Variable
 
 ##### Quelle der Abbildungen "Aufkommen von Plastikabfall in Deutschland"
 
 Eurostat: Abfallaufkommen nach Abfallkategorie, Gefaehrlichkeit und NACE Rev. 2 Taetigkeit 	ENV_WASGEN. Letzte Datenaktualisierung:	29/06/2021. 'https://ec.europa.eu/eurostat/databrowser/view/ENV_WASGEN/default/table?lang=de'
 
-* Die verwendeten Daten wurden für die Visualisierung umbenannt, die Datenpunkte für Deutschland herausgefiltert, die Variable `PMillTonnen` umgerechnet (/1000000) und auf zwei Nachkommastellen gerundet. 
+* Die verwendeten Daten wurden für die Visualisierung umbenannt, die Datenpunkte für Deutschland herausgefiltert, die Variable "PMillTonnen" umgerechnet (/1000000) und auf zwei Nachkommastellen gerundet. 
 
 ##### Quelle der Abbildung "Globale Entwicklung der Abfallwirtschaft":
 
@@ -110,8 +110,8 @@ Quelle:	World Bank, International Comparison Program database.
 http://data.worldbank.org/data-catalog/world-development-indicators
 
 * Die verwendeten Daten wurden für die Visualisierung umbenannt, nur vollständige Datensätze selektiert und wie folgend umgerechnet:
-  Variable `Per capita mismanaged plastic waste`*1000
-  Variable `Per capita plastic waste (kg/person/day)` *1000
+  "Variable Per capita mismanaged plastic waste"*1000
+  "Variable Per capita plastic waste (kg/person/day)"*1000
 
 
 
